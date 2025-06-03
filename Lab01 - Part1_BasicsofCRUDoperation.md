@@ -278,11 +278,9 @@ public class CityModel
 Open the `appsettings.json` file and add your SQL Server connection string:
 
 ```json
-{
   "ConnectionStrings": {
     "DefaultConnection": "Server=YOUR_SERVER_NAME;Database=YOUR_DATABASE_NAME;Trusted_Connection=True;Encrypt=False;"
   }
-}
 ```
 
 Replace `YOUR_SERVER_NAME` and `YOUR_DATABASE_NAME` with your database details.
