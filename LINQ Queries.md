@@ -179,4 +179,3 @@ static List<Student> GetStudents()
 98. All Students with CPI > 8 Have Courses
 99. Group Students by Branch and Sem with Total Course Credits
 100. Join Students with Courses, Select Students with Multiple Courses
-```
