@@ -6,7 +6,99 @@ This example demonstrates how to **authenticate users** and **store their JWT to
 
 ---
 
-## 📌 **1️⃣ AuthService.cs**
+## 📌 **1️⃣ Register Services in `Program.cs`**
+
+```csharp
+// ✅ Register HttpClient, IHttpContextAccessor, and AuthService
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<AuthService>();
+
+// ✅ Enable Session for JWT storage
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session expiry
+});
+
+var app = builder.Build();
+
+// ✅ Enable Session Middleware
+app.UseSession();
+```
+
+---
+
+
+## 📌 **2️⃣ Login View (`Login.cshtml`)**
+
+```html
+<form method="post" class="col-4">
+    <!-- Username -->
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" name="Username" required />
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="Password" required />
+    </div>
+
+    <!-- Role Dropdown -->
+    <div class="form-group">
+        <label>Role</label>
+        <select class="form-control" name="Role" required>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="User">User</option>
+        </select>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+```
+---
+## 📌 **3️⃣ Login Controller**
+
+```csharp
+[HttpPost]
+public async Task<IActionResult> Login(string Username, string Password, string Role)
+{
+    // ✅ Call AuthService for authentication
+    var jsonData = await _authService.AuthenticateUserAsync(Username, Password, Role);
+
+    // ❌ If authentication fails
+    if (jsonData == null)
+    {
+        ViewBag.Error = "Invalid credentials.";
+        return View();
+    }
+
+    // ✅ Deserialize JSON response
+    var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(jsonData);
+    string token = data["token"];
+
+    // ❌ If token is empty, login failed
+    if (string.IsNullOrEmpty(token))
+    {
+        ViewBag.Error = "Invalid credentials.";
+        return View();
+    }
+
+    // ✅ Store token & role in session
+    _httpContextAccessor.HttpContext.Session.SetString("JWTToken", token);
+    _httpContextAccessor.HttpContext.Session.SetString("UserRole", Role);
+
+    // ✅ Redirect to home/dashboard
+    return RedirectToAction("Index", "Home");
+}
+```
+
+---
+
+## 📌 **4️⃣ AuthService.cs**
 
 ```csharp
 // ✅ AuthService is responsible for making API calls for authentication
@@ -40,7 +132,7 @@ public async Task<string?> AuthenticateUserAsync(string username, string passwor
 
 ---
 
-## 📌 **2️⃣ UserController.cs**
+## 📌 ** 5️⃣ UserController.cs**
 
 ```csharp
 using Address_Consume.Models;
@@ -108,31 +200,10 @@ namespace Address_Consume.Controllers
 }
 ```
 
----
-
-## 📌 **3️⃣ Register Services in `Program.cs`**
-
-```csharp
-// ✅ Register HttpClient, IHttpContextAccessor, and AuthService
-builder.Services.AddHttpClient();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<AuthService>();
-
-// ✅ Enable Session for JWT storage
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session expiry
-});
-
-var app = builder.Build();
-
-// ✅ Enable Session Middleware
-app.UseSession();
-```
 
 ---
 
-## 📌 **4️⃣ Role-Based UI Display (Example)**
+## 📌 ** 6️⃣Role-Based UI Display (Example)**
 
 ```csharp
 // ✅ Get user role from session
@@ -163,72 +234,3 @@ else if (role == "User")
 ```
 
 ---
-
-## 📌 **5️⃣ Login Controller**
-
-```csharp
-[HttpPost]
-public async Task<IActionResult> Login(string Username, string Password, string Role)
-{
-    // ✅ Call AuthService for authentication
-    var jsonData = await _authService.AuthenticateUserAsync(Username, Password, Role);
-
-    // ❌ If authentication fails
-    if (jsonData == null)
-    {
-        ViewBag.Error = "Invalid credentials.";
-        return View();
-    }
-
-    // ✅ Deserialize JSON response
-    var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(jsonData);
-    string token = data["token"];
-
-    // ❌ If token is empty, login failed
-    if (string.IsNullOrEmpty(token))
-    {
-        ViewBag.Error = "Invalid credentials.";
-        return View();
-    }
-
-    // ✅ Store token & role in session
-    _httpContextAccessor.HttpContext.Session.SetString("JWTToken", token);
-    _httpContextAccessor.HttpContext.Session.SetString("UserRole", Role);
-
-    // ✅ Redirect to home/dashboard
-    return RedirectToAction("Index", "Home");
-}
-```
-
----
-
-## 📌 **6️⃣ Login View (`Login.cshtml`)**
-
-```html
-<form method="post" class="col-4">
-    <!-- Username -->
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" class="form-control" name="Username" required />
-    </div>
-
-    <!-- Password -->
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="form-control" name="Password" required />
-    </div>
-
-    <!-- Role Dropdown -->
-    <div class="form-group">
-        <label>Role</label>
-        <select class="form-control" name="Role" required>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="User">User</option>
-        </select>
-    </div>
-
-    <br />
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-```
