@@ -63,36 +63,58 @@ app.UseSession();
 ## 📌 **3️⃣ Login Controller**
 
 ```csharp
-[HttpPost]
-public async Task<IActionResult> Login(string Username, string Password, string Role)
+using Address_Consume.Service;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+
+namespace Address_Consume.Controllers
 {
-    // ✅ Call AuthService for authentication
-    var jsonData = await _authService.AuthenticateUserAsync(Username, Password, Role);
-
-    // ❌ If authentication fails
-    if (jsonData == null)
+    public class LoginController : Controller
     {
-        ViewBag.Error = "Invalid credentials.";
-        return View();
+        private readonly AuthService _authService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public LoginController(AuthService authService, IHttpContextAccessor httpContextAccessor)
+        {
+            _authService = authService;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Login(string Username, string Password, string Role)
+        {
+            var jsonData = await _authService.AuthenticateUserAsync(Username, Password, Role);
+
+            if (jsonData == null)
+            {
+                ViewBag.Error = "Invalid credentials.";
+                return View();
+            }
+
+            var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(jsonData);
+            string token = data["token"];
+
+            if (string.IsNullOrEmpty(token))
+            {
+                ViewBag.Error = "Invalid credentials.";
+                return View();
+            }
+
+            _httpContextAccessor.HttpContext.Session.SetString("JWTToken", token);
+            _httpContextAccessor.HttpContext.Session.SetString("UserRole", Role);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Logout()
+        {
+            _httpContextAccessor.HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
-
-    // ✅ Deserialize JSON response
-    var data = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(jsonData);
-    string token = data["token"];
-
-    // ❌ If token is empty, login failed
-    if (string.IsNullOrEmpty(token))
-    {
-        ViewBag.Error = "Invalid credentials.";
-        return View();
-    }
-
-    // ✅ Store token & role in session
-    _httpContextAccessor.HttpContext.Session.SetString("JWTToken", token);
-    _httpContextAccessor.HttpContext.Session.SetString("UserRole", Role);
-
-    // ✅ Redirect to home/dashboard
-    return RedirectToAction("Index", "Home");
 }
 ```
 
