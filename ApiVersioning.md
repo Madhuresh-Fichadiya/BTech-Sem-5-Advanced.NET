@@ -1,17 +1,16 @@
 # API Versioning Strategies in ASP.NET Core with Asp.Versioning.Mvc
 
-This document provides practical examples of four API versioning strategies (URL Versioning, Query Parameter Versioning, Header Versioning, and Consumer-Based Versioning) using ASP.NET Core Web API with the `Asp.Versioning.Mvc` package (version 8.1.0). The examples are built with .NET 8 and include Swagger integration via `Asp.Versioning.Mvc.ApiExplorer`. The scenario involves a product management API where:
+This document provides practical examples of four API versioning strategies (URL Versioning, Query Parameter Versioning, Header Versioning, and Consumer-Based Versioning) using ASP.NET Core Web API with the `Asp.Versioning.Mvc` package (version 8.1.0). The examples are built with .NET 8 and include Swagger integration via `Asp.Versioning.Mvc.ApiExplorer`.
 - **Version 1 (v1)**: Returns products with `Id`, `Name`, and `Price`.
 - **Version 2 (v2)**: Adds a `Category` field.
 
 ## Prerequisites
-1. **Install .NET 8 SDK**: Download from [dotnet.microsoft.com](https://dotnet.microsoft.com).
-2. **Create a new ASP.NET Core Web API project**:
+1. **Create a new ASP.NET Core Web API project**:
    ```bash
    dotnet new webapi -n ApiVersioningDemo
    cd ApiVersioningDemo
    ```
-3. **Add required packages**:
+2. **Add required packages**:
    ```bash
    dotnet add package Asp.Versioning.Mvc --version 8.1.0
    dotnet add package Asp.Versioning.Mvc.ApiExplorer --version 8.1.0
