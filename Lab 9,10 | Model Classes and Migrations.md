@@ -1,62 +1,7 @@
 # Model Classes and Migrations
-
-![Image](https://images.openai.com/static-rsc-4/YxHYh3DASAzrr11vAmTvhu7brcN3Vf6ojICJVlf2DadOwqOMkAg411od2SvBUeGgyu3IrQqbLOx0a87JBox6OrHfO6drQfy26GVISJ5Ry3Lp89lWrk-IuRi_kAJgYMOVNfM8pdm0jtaatLM79kSopcbRrlzadqRMHmRq4wOCMuO8x853aFTUq6uk3BoqRTpz?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/hFJFC4dFnO2sV9Uc4IQa1CLK0pMzbwhjgUO7M-TbXr92onKKmHf2vtPyhAwOXVlYrqCkWBY_6puKsdkVZ_CZrLY2PehMZVoLn-Ebv10xSE1p7tlEa48CS2JtvXYATOW4L8UqWmzBvL4t3_1UMeCb2J3N5QSXP3902sK7tgeyLxYo-2Z3atQqQ6Fe0L3e5zDZ?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/ykewsy_epnMCp1zT9-FRKV1769wuGTDjRrJRwCyHVt9EZ2-8NAWYUWGddcW9JlQqtRLJ2036h84fpb0ZBcWrYt7ZaoE7AX9ITGJ55G-YcdUpd-7R-sy6rz_MTrbZV_77-zqkoYVlyy347E6csEVkS_UuutF9dfV97EVcig4f6ZVOCmraXwwPDbsuf5rLsdXZ?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/-FBVVU2B-yGJnlZpygZ3qPH831lD2aiNdlLVn-2apwKgfaJcExshTn0ESN31H25kOtMeqLv25o7rEAEpmlxkaRLphUQad1nY_HMXAyhgHz4vBld0tYKz1i9tAS85mqqpdjnCw-4Pm5qTwcqvXjgHbWI7fNLsvczJnx09lYo2uh4Jz5_s_qFGAP2wpKsmq5qh?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/8kgbbaFCcbl4wNMF_v6u64p6gOwRIXK2FrfwlhE50iHMi8MoocsFO1FRogPBaxJU4MfwEO8cEvpxTiVNpkTVbFwjqePyt-tQeLW0qAKRRp346E6__wPLpM448QnonAJZqJObrEkKhcB_jWOUih3UxjMCmxT0wLs5WtS3hOK8V8RFs08Az7qcADzpWr-Ln1HQ?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/-hKfng8RlCfUUED3ZlteL0-G95WksXzi0Dpj88zNNAoaZ-_Og84hEZWEE0L7mtsWrVWkYK03D2RfBam5V-T8Yd0VKZlRMkJ3flnWu-Ih5x94sKp2d5sQuinFaY4ntT7Do66Z0Y1Csp9GCXIwl7mwvrTlFJomEPu5rPzASAq5lFdSmOWy0vYkQxCtAEPShljj?purpose=fullsize)
-
-If you're teaching students about **Migrations in .NET Core Web API**, the best approach is:
-
-1. Start with the problem.
-2. Explain why migrations exist.
-3. Introduce EF Core Migration concepts.
-4. Demonstrate implementation.
-5. Cover real-world scenarios and best practices.
-
----
-
-# Suggested Teaching Flow (2-3 Hours Session)
-
-```text
-Databases Without Migration
-        ↓
-Problem Statement
-        ↓
-What is EF Core Migration?
-        ↓
-Why Migration is Required?
-        ↓
-Migration Architecture
-        ↓
-Create First Migration
-        ↓
-Update Database
-        ↓
-Add/Modify/Delete Columns
-        ↓
-Relationships
-        ↓
-Rollback Migration
-        ↓
-Production Scenarios
-        ↓
-Best Practices
-```
-
----
-
 # Part 1: Start with a Problem Statement
 
-## Scenario 1
-
-Suppose we have a Student table.
+## Scenario: Suppose we have a Student table.
 
 ### Initial Table
 
@@ -66,33 +11,27 @@ Suppose we have a Student table.
 | 2  | David |
 
 Now business says:
-
 > Add Email column.
 
 Without migration:
 
 ```sql
-ALTER TABLE Students
-ADD Email NVARCHAR(100)
+ALTER TABLE Students ADD Email NVARCHAR(100)
 ```
 
 Then:
-
 > Add Phone Number.
 
 Again:
-
 ```sql
 ALTER TABLE Students
 ADD PhoneNumber NVARCHAR(20)
 ```
 
 Then:
-
 > Remove Name and split into FirstName and LastName.
 
 Again more SQL.
-
 ---
 
 ### Problems
@@ -103,7 +42,6 @@ Again more SQL.
 * Difficult deployment
 * Errors in production
 * No history of schema changes
-
 ---
 
 # Introduce Migration
@@ -111,11 +49,6 @@ Again more SQL.
 ## Definition
 
 > Migration is a mechanism provided by Entity Framework Core to keep the database schema synchronized with the application's model classes.
-
-Or simply:
-
-> Migration is version control for your database.
-
 ---
 
 # Real Life Analogy
@@ -134,65 +67,38 @@ Example:
 ```text
 V1 -> Create Students table
 V2 -> Add Email
-V3 -> Add Phone
-V4 -> Add Department table
+V3 -> PhoneNumber
+V4 -> Remove Name and split into FirstName and LastName
 ```
-
 ---
 
 # Why Migrations are Required
 
-## 1. Database Versioning
-
+### 1. Database Versioning
 Track every database change.
 
----
-
-## 2. Team Collaboration
-
+### 2. Team Collaboration
 Developer A:
-
 ```text
 Add Employee table
 ```
-
 Developer B:
-
 ```text
 git pull
 update-database
 ```
-
 Database becomes same.
 
----
-
-## 3. Production Deployment
-
+### 3. Production Deployment
 No need to manually write SQL.
 
----
-
-## 4. Database Synchronization
-
-Development
-Testing
-Staging
-Production
-
+### 4. Database Synchronization
+Development, Testing, Production
 All environments remain consistent.
 
----
+### 5. Rollback Support
 
-## 5. Rollback Support
-
-If something goes wrong:
-
-```bash
-dotnet ef database update PreviousMigration
-```
-
----
+If something goes wrong then revert to required migration
 
 # Migration Architecture
 
@@ -206,27 +112,9 @@ dotnet ef database update PreviousMigration
 
 ![Image](https://images.openai.com/static-rsc-4/o6SOkN-PkdJQi9ouD7PvjtTG_PP2FpGdxOLHELVb6hJMROgcr-QPne0Ypooi2xbogCQ_wamJxDDDTkuP0si0gclK2TVS4Q5TJ7l5Z3eNeyFQK5OazlGTfh7R30XK8elU1qrim88fLm7c5IYqK9Ip4LnOCE39a0X3VRPYFKmuTlRZUkMXgAVFH15cQye2Eort?purpose=fullsize)
 
-```text
-Entity Classes
-      ↓
-DbContext
-      ↓
-Add-Migration
-      ↓
-Migration Files
-      ↓
-Update-Database
-      ↓
-SQL Generated
-      ↓
-Database Updated
-```
-
----
-
 # Part 2: Understanding Code First Approach
 
-## Entity
+### Entity
 
 ```csharp
 public class Student
@@ -235,17 +123,12 @@ public class Student
     public string Name { get; set; }
 }
 ```
-
----
-
-## DbContext
+### DbContext
 
 ```csharp
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {
     }
 
@@ -253,29 +136,20 @@ public class ApplicationDbContext : DbContext
 }
 ```
 
----
-
-# Install Packages
+#### Install Packages
 
 ```bash
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-dotnet add package Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.Design
 ```
-
----
-
-# Configure Connection String
+### Configure Connection String
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection":
-  "Server=.;Database=StudentDB;Trusted_Connection=True;TrustServerCertificate=True"
+  "DefaultConnection":   "Server=.;Database=StudentDB;Trusted_Connection=True;TrustServerCertificate=True"
 }
 ```
-
----
-
 # Register DbContext
 
 ```csharp
@@ -285,40 +159,59 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 ```
+Here is the breakdown of exactly what each part does:
+
+#### 1. `builder.Services`
+> This accesses the application's **Dependency Injection (DI) container**. By adding services here, you are telling the application how to create and provide specific objects whenever different parts of your app (like Controllers or Services) ask for them.
+
+#### 2. `.AddDbContext<ApplicationDbContext>(options => { ... })`
+> * **`AddDbContext`**: This tells ASP.NET Core to register your database context (`ApplicationDbContext`) into the DI container. This allows you to easily inject your database context into your controllers using constructor injection.
+> * **`<ApplicationDbContext>`**: This is your custom class that inherits from EF Core's `DbContext`. It acts as the bridge between your C# code and your actual database.
+> * **`options => { ... }`**: This is an action delegate (a lambda expression) used to configure the database options, such as which database provider to use and where to find it.
+
+#### 3. `options.UseSqlServer(...)`
+
+> This specifies that you are using **Microsoft SQL Server** as your relational database management system. It tells EF Core to translate your C# LINQ queries into SQL Server-compatible SQL syntax.
+
+#### 4. `builder.Configuration.GetConnectionString("DefaultConnection")`
+
+> * **`builder.Configuration`**: This looks into your application's configuration sources (most commonly the `appsettings.json` file).
+> * **`GetConnectionString("DefaultConnection")`**: This is a helper method that specifically looks for a connection string named `"DefaultConnection"` inside the `ConnectionStrings` section of your configuration.
 
 ---
 
-# Part 3: Create First Migration
+### Summary: How it connects to your `appsettings.json`
 
-## Command
+For this code to work without throwing an error, you typically have a matching block in your `appsettings.json` file that looks like this:
 
-```bash
-dotnet ef migrations add InitialCreate
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=YOUR_SERVER;Database=YOUR_DB;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}
+
 ```
+---
 
-or
+# Create First Migration
 
+### Command
 ```powershell
 Add-Migration InitialCreate
 ```
 
----
-
-# What Happens?
+### What Happens?
 
 EF compares:
-
 ```text
 Current Model
 vs
 Database Snapshot
 ```
-
 Generates migration file.
 
----
-
-# Migration Folder Structure
+## Migration Folder Structure
 
 ```text
 Migrations
@@ -327,10 +220,9 @@ Migrations
 ├── 20250628120000_InitialCreate.Designer.cs
 └── ApplicationDbContextModelSnapshot.cs
 ```
-
----
-
-# Generated Migration
+## Generated Migration
+> `Up()` Applied when migration runs.
+> `Down()` Applied when migration rolls back.
 
 ```csharp
 protected override void Up(MigrationBuilder migrationBuilder)
@@ -343,327 +235,239 @@ protected override void Up(MigrationBuilder migrationBuilder)
                 .Annotation("SqlServer:Identity", "1, 1"),
             Name = table.Column<string>(nullable: false)
         });
-}
-```
 
----
-
-# Down Method
-
-```csharp
-protected override void Down(MigrationBuilder migrationBuilder)
-{
-    migrationBuilder.DropTable(
+ protected override void Down(MigrationBuilder migrationBuilder)
+ {
+     migrationBuilder.DropTable(
         name: "Students");
-}
+ }
 ```
-
----
-
-# Explain Carefully
-
-## Up()
-
-Applied when migration runs.
-
-## Down()
-
-Applied when migration rolls back.
-
----
-
 # Update Database
-
-```bash
-dotnet ef database update
-```
-
 or
 
 ```powershell
 Update-Database
 ```
-
----
-
 # Internal Process
 
 ```text
-Migration File
-      ↓
-EF Generates SQL
-      ↓
-Executes SQL
-      ↓
-Updates Database
-      ↓
-Stores Migration History
+Migration File --> EF Generates SQL --> Executes SQL --> Updates Database --> Stores Migration History
 ```
 
----
 
 # Migration History Table
-
 ```text
 __EFMigrationsHistory
 ```
 
 Stores:
-
 ```text
 MigrationId
 ProductVersion
 ```
-
----
-
-# Part 4: Different Scenarios
-
-# Scenario 1: Add Column
-
-Old Model
-
+## Different Scenarios
+### Models
 ```csharp
-public string Name { get; set; }
-```
+public class Student
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
 
-New Model
-
-```csharp
-public string Email { get; set; }
-```
-
-Create migration:
-
-```bash
-dotnet ef migrations add AddEmail
-```
-
-Generated SQL:
-
-```sql
-ALTER TABLE Students
-ADD Email nvarchar(max)
-```
-
----
-
-# Scenario 2: Remove Column
-
-```csharp
-Remove PhoneNumber property
-```
-
-Migration:
-
-```bash
-dotnet ef migrations add RemovePhone
-```
-
-Generated SQL:
-
-```sql
-ALTER TABLE Students
-DROP COLUMN PhoneNumber
-```
-
----
-
-# Scenario 3: Rename Column
-
-Wrong approach:
-
-```csharp
-Name -> FullName
-```
-
-EF thinks:
-
-```text
-Drop Name
-Create FullName
-```
-
-Data loss!
-
-Correct:
-
-```csharp
-migrationBuilder.RenameColumn(
-    name: "Name",
-    table: "Students",
-    newName: "FullName");
-```
-
----
-
-# Scenario 4: Add New Table
-
-```csharp
 public class Department
 {
     public int Id { get; set; }
     public string Name { get; set; }
 }
+
 ```
 
-Migration:
-
-```bash
-dotnet ef migrations add AddDepartment
-```
-
----
-
-# Scenario 5: One-to-Many Relationship
+### DbContext Configuration
 
 ```csharp
-public class Department
+public class ApplicationDbContext : DbContext
 {
-    public int Id { get; set; }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public ICollection<Student> Students { get; set; }
-}
-```
-
-```csharp
-public class Student
-{
-    public int Id { get; set; }
-
-    public int DepartmentId { get; set; }
-
-    public Department Department { get; set; }
-}
-```
-
-Migration creates:
-
-```text
-Departments Table
-Students Table
-Foreign Key
-```
-
----
-
-# Scenario 6: Many-to-Many
-
-```csharp
-public class Student
-{
-    public ICollection<Course> Courses { get; set; }
+    public DbSet<Student> Students { get; set; }
+    public DbSet<Department> Departments { get; set; }
 }
 
-public class Course
+```
+
+---
+
+## 🚀 PowerShell Migration Scenarios
+
+### Scenario 1: Add Column
+
+* **C# Change:** Add `public string Email { get; set; }` to `Student`.
+* **PowerShell:**
+```powershell
+Add-Migration AddEmail
+Update-Database
+
+```
+
+
+
+### Scenario 2: Remove Column
+
+* **C# Change:** Delete `public string PhoneNumber { get; set; }` from `Student`.
+* **PowerShell:**
+```powershell
+Add-Migration RemovePhone
+Update-Database
+
+```
+
+
+
+### Scenario 3: Rename Column (Data-Safe)
+
+* **C# Change:** Rename `Name` to `FullName` in `Student`.
+* **Action Required:** Open the generated migration file and modify the `Up` method to prevent data loss:
+```csharp
+protected override void Up(MigrationBuilder migrationBuilder)
 {
-    public ICollection<Student> Students { get; set; }
+    migrationBuilder.RenameColumn(
+        name: "Name",
+        table: "Students",
+        newName: "FullName");
 }
+
 ```
 
-EF automatically creates:
 
-```text
-StudentCourse
+* **PowerShell:**
+```powershell
+Add-Migration RenameStudentName
+Update-Database
+
 ```
 
-junction table.
 
----
 
-# Scenario 7: Change Data Type
+### Scenario 4: Add New Table
 
+* **C# Change:** Add a new class `public class Course { public int Id { get; set; } }` and add `public DbSet<Course> Courses { get; set; }` to `DbContext`.
+* **PowerShell:**
+```powershell
+Add-Migration AddCourseTable
+Update-Database
+
+```
+
+
+
+### Scenario 5: One-to-Many Relationship
+
+* **C# Change:**
 ```csharp
-int Age
+// In Department.cs
+public ICollection<Student> Students { get; set; }
+
+// In Student.cs
+public int DepartmentId { get; set; }
+public Department Department { get; set; }
+
 ```
 
-to
 
+* **PowerShell:**
+```powershell
+Add-Migration AddDepartmentRelationship
+Update-Database
+
+```
+
+
+
+### Scenario 6: Many-to-Many Relationship
+
+* **C# Change:**
 ```csharp
-string Age
+// In Student.cs
+public ICollection<Course> Courses { get; set; }
+
+// In Course.cs
+public ICollection<Student> Students { get; set; }
+
 ```
 
-Migration generated:
 
-```sql
-ALTER TABLE
-ALTER COLUMN
+* **PowerShell:** *(EF automatically creates the hidden junction table `CourseStudent`)*
+```powershell
+Add-Migration AddCourseStudentRelationship
+Update-Database
+
 ```
 
-Sometimes it fails if data conversion is impossible.
 
-Always backup production data.
 
----
+### Scenario 7: Change Data Type
 
-# Scenario 8: Seed Data
+* **C# Change:** Modify `public int Age { get; set; }` to `public string Age { get; set; }`.
+* **PowerShell:**
+```powershell
+Add-Migration ChangeAgeDataType
+Update-Database
 
+```
+
+
+> ⚠️ **Warning:** SQL Server will throw an error during `Update-Database` if existing data cannot be implicitly converted.
+
+
+
+### Scenario 8: Seed Data
+
+* **C# Change:** Add to `OnModelCreating` in `DbContext`:
 ```csharp
-modelBuilder.Entity<Department>().HasData(
-new Department
-{
-    Id = 1,
-    Name = "IT"
-});
+modelBuilder.Entity<Department>().HasData(new Department { Id = 1, Name = "IT" });
+
 ```
 
-Migration inserts:
 
-```sql
-INSERT INTO Departments
+* **PowerShell:**
+```powershell
+Add-Migration SeedInitialDepartments
+Update-Database
+
 ```
 
----
 
-# Scenario 9: Rollback Migration
 
-Remove latest migration:
+### Scenario 9: Rollback Changes
 
-```bash
-dotnet ef migrations remove
+* **Remove latest migration** *(Only works if it has not been pushed to the database yet)*:
+```powershell
+Remove-Migration
+
 ```
 
-Rollback database:
 
-```bash
-dotnet ef database update InitialCreate
+* **Revert Database state** *(Downgrades the database schema back to a specific checkpoint)*:
+```powershell
+Update-Database -TargetMigration InitialCreate
+
 ```
 
----
 
-# Scenario 10: Generate SQL Script
 
-Very important in production.
+### Scenario 10: Generate SQL Scripts (For Production)
 
-```bash
-dotnet ef migrations script
+* **Generate full script** from scratch to the latest state:
+```powershell
+Script-Migration
+
 ```
 
-Specific migrations:
 
-```bash
-dotnet ef migrations script InitialCreate AddEmail
-```
+* **Generate a differential script** between two specific migrations:
+```powershell
+Script-Migration -From InitialCreate -To AddEmail
 
----
-
-# Production Flow
-
-```text
-Developer
-    ↓
-Create Migration
-    ↓
-Commit Code
-    ↓
-Generate SQL Script
-    ↓
-DBA Review
-    ↓
-Production Database
-```
-
----
 
 # Important Commands
 
