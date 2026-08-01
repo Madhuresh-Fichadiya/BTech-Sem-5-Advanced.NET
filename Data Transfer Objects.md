@@ -1,4 +1,4 @@
-# Why Do We Need DTOs?
+# Problems without DTOs?
 Suppose, we have following Model Classes
 
 ```csharp
