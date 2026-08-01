@@ -1,7 +1,7 @@
 # Why Do We Need DTOs?
 Suppose, we have following Model Classes
 
-`csharp
+```csharp
 public class Student
 {
     public int StudentId { get; set; }
@@ -27,9 +27,10 @@ public class Department
     //Navigation
     public ICollection<Student> Students { get; set; }
 }
-`
+```
+
 And we have API Endpoints for Create and GetAll as below
-`csharp
+```csharp
 [HttpGet]
 public IActionResult GetAll()
 {
@@ -37,7 +38,6 @@ public IActionResult GetAll()
         .Include(x=>x.Department).ToList();
     return Ok(students);
 }
-
 
 [HttpPost]
 public async Task<IActionResult> AddStudent(Student student)
@@ -54,7 +54,7 @@ public async Task<IActionResult> AddStudent(Student student)
         return Ok(JsonConvert.SerializeObject(message));
     }
 }
-`
+```
 ## Now, If we call `GetAll` Method, The API Gives following:
 <img width="1747" height="741" alt="DTO_Error1" src="https://github.com/user-attachments/assets/5a8893a2-4b4d-438e-8799-fb15a80baf97" />
 
@@ -66,14 +66,14 @@ There are Three Possible Solutions for this,
 1) Use DTOs - Will Understand later on.
 2) Ignore Navigation Properties using `JsonIgnore` attribute
 3) Configure ReferenceHandler in Program.cs file as below
-`csharp
+```csharp
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler =
             System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
-`
+```
 which gives output as below
 <img width="1750" height="722" alt="image" src="https://github.com/user-attachments/assets/910a9713-cbd6-4ea5-bad7-545cef6ea205" />
 
@@ -99,7 +99,7 @@ Instead of sending your Entity (Database Model) directly to the client, you crea
 ## Example
 
 Create Data Transfer Object for Student model as below:
-`csharp
+```csharp
 public class StudentDTO
 {
     public int StudentId { get; set; }
@@ -111,10 +111,11 @@ public class StudentDTO
     //Helpful to Bind the Department Name in the UI
     public string? DepartmentName { get; set; }
 }
-`
+```
 Do Changes in API Endpoints inside controller as below:
 In the Get All Method,
-`[HttpGet]
+```csharp
+[HttpGet]
 public IActionResult GetAll()
 {
     var students = _context.Students
@@ -130,11 +131,11 @@ public IActionResult GetAll()
         .ToList();
     return Ok(students);
 }
-`
+```
 <img width="1733" height="711" alt="image" src="https://github.com/user-attachments/assets/e20b3666-20f0-4643-9d7f-3f2e7ac3e750" />
 
 In the Post Method,
-`csharp
+```csharp
 [HttpPost]
 public async Task<IActionResult> AddStudent(StudentDTO student)
 {
@@ -157,6 +158,5 @@ public async Task<IActionResult> AddStudent(StudentDTO student)
         return Ok(JsonConvert.SerializeObject(message));
     }
 }
-`
-
+```
 <img width="1732" height="725" alt="image" src="https://github.com/user-attachments/assets/8c70f824-3016-40af-9536-2ccc1ca1e7a7" />
