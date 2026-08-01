@@ -107,7 +107,7 @@ Instead of sending your Entity (Database Model) directly to the client, you crea
 
 ## Example
 
-Create Data Transfer Object for Student model as below:
+#### Create Data Transfer Object for Student model as below:
 ```csharp
 public class StudentDTO
 {
@@ -121,8 +121,10 @@ public class StudentDTO
     public string? DepartmentName { get; set; }
 }
 ```
+
 Do Changes in API Endpoints inside controller as below:
-In the Get All Method,
+
+** In the `GetAll` Method,
 ```csharp
 [HttpGet]
 public IActionResult GetAll()
@@ -141,9 +143,12 @@ public IActionResult GetAll()
     return Ok(students);
 }
 ```
+
+Now If we do test Endpoint, It Gives following:
+
 <img width="1733" height="711" alt="image" src="https://github.com/user-attachments/assets/e20b3666-20f0-4643-9d7f-3f2e7ac3e750" />
 
-In the Post Method,
+** In the `Post` Method,
 ```csharp
 [HttpPost]
 public async Task<IActionResult> AddStudent(StudentDTO student)
@@ -168,4 +173,6 @@ public async Task<IActionResult> AddStudent(StudentDTO student)
     }
 }
 ```
+Now If we do test Endpoint, It Gives following:
+
 <img width="1732" height="725" alt="image" src="https://github.com/user-attachments/assets/8c70f824-3016-40af-9536-2ccc1ca1e7a7" />
