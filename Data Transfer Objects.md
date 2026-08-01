@@ -66,8 +66,8 @@ Why we get above error?
 > `Student --> Department`, `Department --> Students`, `Student --> Department`, `Department --> Students`
 
 ### There are Three Possible Solutions for this,
-1) Use DTOs - Will Understand later on.
-2) Ignore Navigation Properties using `JsonIgnore` attribute
+1) Use DTOs - Will Understand.
+2) Ignore Navigation Properties using `JsonIgnore` attribute - Not Preferred as it ignores properties in Serialization and Deserialization both cases
 3) Configure ReferenceHandler in Program.cs file as below
 ```csharp
 builder.Services.AddControllers()
