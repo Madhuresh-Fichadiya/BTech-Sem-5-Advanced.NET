@@ -1,7 +1,7 @@
 # Why Do We Need DTOs?
 Suppose, we have following Model Classes
 
-`charp
+`csharp
 public class Student
 {
     public int StudentId { get; set; }
