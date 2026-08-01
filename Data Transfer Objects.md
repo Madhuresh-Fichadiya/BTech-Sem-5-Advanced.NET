@@ -62,7 +62,7 @@ public async Task<IActionResult> AddStudent(Student student)
 <img width="1747" height="741" alt="DTO_Error1" src="https://github.com/user-attachments/assets/5a8893a2-4b4d-438e-8799-fb15a80baf97" />
 
 Why we get above error?
-When we fetch a student details, The serializer tries to convert the object into JSON. The JSON serializer doesn't know where to stop. So it creates Cycle. Because EF Core loads navigation properties: 
+- When we fetch a student details, The serializer tries to convert the object into JSON. The JSON serializer doesn't know where to stop. So it creates Cycle. Because EF Core loads navigation properties: 
 > `Student --> Department`, `Department --> Students`, `Student --> Department`, `Department --> Students`
 
 ### There are Three Possible Solutions for this,
