@@ -29,7 +29,7 @@ public class Department
 }
 ```
 
-And we have API Endpoints for Create and GetAll as below
+And we have API Endpoints for GetAll Records and Post a new Record as below:
 ```csharp
 [HttpGet]
 public IActionResult GetAll()
