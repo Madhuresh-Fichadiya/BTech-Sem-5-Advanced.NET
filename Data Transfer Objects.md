@@ -150,7 +150,6 @@ Now If we do test Endpoint, It Gives following:
 
 <img width="1733" height="711" alt="image" src="https://github.com/user-attachments/assets/e20b3666-20f0-4643-9d7f-3f2e7ac3e750" />
 
-<br/>
 **In the `Post` Method,**
 ```csharp
 [HttpPost]
