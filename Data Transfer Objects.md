@@ -78,7 +78,7 @@ builder.Services.AddControllers()
     });
 ```
 
-which gives output as below
+which gives output as below: Here it gives few extra details like Created, Inside Department Object --> Student Object (Unnecessary)
 <img width="1750" height="722" alt="image" src="https://github.com/user-attachments/assets/910a9713-cbd6-4ea5-bad7-545cef6ea205" />
 
 ---
