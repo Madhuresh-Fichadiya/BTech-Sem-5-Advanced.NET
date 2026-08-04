@@ -8,6 +8,16 @@ https://github.com/sejalgupta001/Building-REST-APIs-using-ASP.NET-Core/blob/main
 
 ## 1. Aggregation Operators
 
+| Operator      | Description                                                                        | Return Type         | Example                           | Output |
+| ------------- | ---------------------------------------------------------------------------------- | ------------------- | --------------------------------- |--------|
+| `Count()`     | Returns the total number of elements.                                              | `int`               | `students.Count()`                | 4      |
+| `Sum()`       | Calculates the sum of numeric values.                                              | Numeric Type        | `students.Sum(s => s.Marks)`      | 350    |
+| `Average()`   | Calculates the average of numeric values.                                          | Numeric Type        | `students.Average(s => s.Marks)`  | 87.5   |
+| `Min()`       | Returns the smallest value.                                                        | Same as source type | `students.Min(s => s.Marks)`      | 78     |
+| `Max()`       | Returns the largest value.                                                         | Same as source type | `students.Max(s => s.Marks)`      | 95     |
+| `Aggregate()` | Applies a custom accumulation function to the collection.                          | Custom              | `students.Select(s => s.Name).Aggregate((x,y) => x + ", " + y)` | Amit, Neha, Ravi, Priya   |
+
+
 ```csharp
 var sampleData = new[]
 {
@@ -22,16 +32,7 @@ var sampleData = new[]
     new { Name = "Vivek", Branch = "CE", Sem = 5, CPI = 6.9, ExtraValue = (object)75, Courses = new List<string>() { "JavaScript", "DBMS" } },
     new { Name = "Anjali", Branch = "ME", Sem = 4, CPI = 8.1, ExtraValue = (object)"Design", Courses = new List<string>() { "CAD", "Thermodynamics" } }   
 ```
-
-| Operator      | Description                                                                        | Return Type         | Example                           | Output |
-| ------------- | ---------------------------------------------------------------------------------- | ------------------- | --------------------------------- |--------|
-| `Count()`     | Returns the total number of elements.                                              | `int`               | `students.Count()`                | 4      |
-| `Sum()`       | Calculates the sum of numeric values.                                              | Numeric Type        | `students.Sum(s => s.Marks)`      | 350    |
-| `Average()`   | Calculates the average of numeric values.                                          | Numeric Type        | `students.Average(s => s.Marks)`  | 87.5   |
-| `Min()`       | Returns the smallest value.                                                        | Same as source type | `students.Min(s => s.Marks)`      | 78     |
-| `Max()`       | Returns the largest value.                                                         | Same as source type | `students.Max(s => s.Marks)`      | 95     |
-| `Aggregate()` | Applies a custom accumulation function to the collection.                          | Custom              | `students.Select(s => s.Name).Aggregate((x,y) => x + ", " + y)` | Amit, Neha, Ravi, Priya   |
-
+**Examples:**
 
 1. Total Number of Students
 ```csharp
