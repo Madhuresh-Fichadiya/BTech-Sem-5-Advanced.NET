@@ -36,43 +36,47 @@ var sampleData = new[]
 
 1. Total Number of Students
 ```csharp
-var totalStudents = students.Count();
+// SELECT COUNT(*) AS TotalStudents FROM Students;
 
+var totalStudents = students.Count();
 Console.WriteLine($"Total Students: {totalStudents}");
 ```
 2. Average CPI of All Students
 ```csharp
+
+// SELECT AVG(CPI) AS AverageCPI FROM Students;
+
 var avgCPI = students.Average(s => s.CPI);
 Console.WriteLine($"Average CPI: {avgCPI}");
 ```
 3. Highest CPI
 ```csharp
+// SELECT MAX(CPI) AS HighestCPI FROM Students;
+
 var highestCPI = students.Max(s => s.CPI);
 Console.WriteLine($"Highest CPI: {highestCPI}");
 ```
 4. Lowest CPI
 ```csharp
+
+// SELECT MIN(CPI) AS LowestCPI FROM Students;
 var lowestCPI = students.Min(s => s.CPI);
 Console.WriteLine($"Lowest CPI: {lowestCPI}");
 ```
 5. Total Semester Sum
 ```csharp
+// SELECT SUM(Sem) AS TotalSemesters FROM Students;
+
 var totalSem = students.Sum(s => s.Sem);
 Console.WriteLine($"Total Semesters Sum: {totalSem}");
 ```
 
 6. Total Students Having CPI Above 8
 ```csharp
+//SELECT COUNT(*) AS TopperCount FROM Students WHERE CPI > 8;
+
 var topperCount = students.Count(s => s.CPI > 8);
-
 Console.WriteLine($"Students with CPI > 8 : {topperCount}");
-```
-
-7. Total Courses Enrolled By All Students
-```csharp
-var totalCourses = students.Sum(s => s.Courses.Count);
-
-Console.WriteLine($"Total Course Registrations: {totalCourses}");
 ```
 
 ## 2. Group By Operator
@@ -146,8 +150,10 @@ Output:
 
 **Examples:**
 
-1. Group Students by Branch
+1. Display all students grouped by their branch.
 ```csharp
+// SELECT Branch FROM Students GROUP BY Branch;
+
 var result = students
     .GroupBy(s => s.Branch);
 
@@ -162,8 +168,10 @@ foreach (var group in result)
 }
 ```
 
-2. Group Students by Semester
+2. Display all students grouped by semester.
 ```csharp
+//SELECT Sem FROM Students GROUP BY Sem;
+
 var result = students
     .GroupBy(s => s.Sem);
 
@@ -178,8 +186,10 @@ foreach (var group in result)
 }
 ```
 
-3. Group Students by Branch and Count
+3. Find the total number of students in each branch.
 ```
+//SELECT  Branch, COUNT(*) AS TotalStudents FROM Students GROUP BY Branch;
+
 var result = students
     .GroupBy(s => s.Branch)
     .Select(g => new
@@ -194,8 +204,10 @@ foreach (var item in result)
 }
 ```
 
-4. Group Students by Branch and Average CPI
+4. Calculate the average CPI of students for each branch.
 ```csharp
+// SELECT Branch, AVG(CPI) AS AvgCPI FROM Students GROUP BY Branch;
+
 var result = students
     .GroupBy(s => s.Branch)
     .Select(g => new
@@ -210,9 +222,11 @@ foreach (var item in result)
 }
 ```
 
-5. Group Students by Semester and Find Highest CPI
+5. Find the highest CPI achieved in each semester.
 
 ```csharp
+//SELECT Sem AS Semester, MAX(CPI) AS HighestCPI FROM Students GROUP BY Sem;
+
 var result = students
     .GroupBy(s => s.Sem)
     .Select(g => new
@@ -227,8 +241,8 @@ foreach (var item in result)
 }
 ```
 
-6. Group Students by Branch and Semester
-
+6. Group students based on both branch and semester.
+// SELECT Branch, Sem, COUNT(*) AS TotalStudents FROM Students GROUP BY Branch, Sem; 
 ```csharp
 var result = students
     .GroupBy(s => new
@@ -249,7 +263,26 @@ foreach (var group in result)
 }
 ```
 
-7. Group Students by CPI Grade
+7. Categorize students into Excellent (≥9), Good (≥8), Average (≥7), and Poor (<7) based on CPI.
+
+```sql
+SELECT
+    CASE
+        WHEN CPI >= 9 THEN 'Excellent'
+        WHEN CPI >= 8 THEN 'Good'
+        WHEN CPI >= 7 THEN 'Average'
+        ELSE 'Poor'
+    END AS Category,
+    COUNT(*) AS TotalStudents
+FROM Students
+GROUP BY
+    CASE
+        WHEN CPI >= 9 THEN 'Excellent'
+        WHEN CPI >= 8 THEN 'Good'
+        WHEN CPI >= 7 THEN 'Average'
+        ELSE 'Poor'
+    END;
+```
 
 ```csharp
 var result = students
@@ -278,7 +311,28 @@ foreach (var group in result)
 }
 ```
 
-8. Group by Branch and Show Topper of Each Branch
+8. Find the topper (highest CPI student) from each branch.
+```sql
+WITH RankedStudents AS
+(
+    SELECT
+        Branch,
+        Name,
+        CPI,
+        ROW_NUMBER() OVER
+        (
+            PARTITION BY Branch
+            ORDER BY CPI DESC
+        ) AS RN
+    FROM Students
+)
+SELECT
+    Branch,
+    Name,
+    CPI
+FROM RankedStudents
+WHERE RN = 1;
+```
 
 ```csharp
 var result = students
