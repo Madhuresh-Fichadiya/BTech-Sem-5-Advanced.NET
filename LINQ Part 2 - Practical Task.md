@@ -5,6 +5,7 @@
 3) Display the total number of projects available in the system.
 
 4) Show how many tasks belong to each status category.
+
 | Status    | Tasks |
 | --------- | ----- |
 | Completed | 120   |
@@ -13,6 +14,7 @@
 | Cancelled | 10    |
 
 5) Show priority wise task count
+
 | Priority | Tasks |
 | -------- | ----- |
 | Critical | 20    |
