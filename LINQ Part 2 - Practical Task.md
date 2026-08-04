@@ -22,18 +22,21 @@
 | Low      | 50    |
 
 6) Show how many projects are assigned to each faculty member.
+
 | Faculty   | Projects |
 | --------- | -------- |
 | Dr. Shah  | 15       |
 | Dr. Patel | 12       |
 
 7) Show how many tasks have been assigned to each student.
+
 | Student | Tasks |
 | ------- | ----- |
 | Amit    | 15    |
 | Ravi    | 12    |
 
 8) Display the top 10 students having the highest average earned score.
+
 | Student | Avg Score |
 | ------- | --------- |
 | Amit    | 92        |
@@ -44,6 +47,7 @@
 10) Display all tasks whose due date has passed but are not completed.
 11) Display tasks having follow-up dates within the next 7 days.
 12) Show how many students have obtained each grade.
+
 | Grade | Students |
 | ----- | -------- |
 | A     | 30       |
