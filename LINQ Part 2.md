@@ -55,6 +55,18 @@ var totalSem = students.Sum(s => s.Sem);
 Console.WriteLine($"Total Semesters Sum: {totalSem}");
 ```
 
+6. Total Students Having CPI Above 8
+```csharp
+var topperCount = students.Count(s => s.CPI > 8);
+
+Console.WriteLine($"Students with CPI > 8 : {topperCount}");
+```
+
+7. Total Courses Enrolled By All Students
+```csharp
+var totalCourses = students.Sum(s => s.Courses.Count);
+
+Console.WriteLine($"Total Course Registrations: {totalCourses}");
 
 
 ## 2. Group By Operator
