@@ -1,4 +1,4 @@
-## Task 1: Different Dashboard Statstics
+# LINQ Practical Tasks
 
 **1) Display the total number of students registered in the system.**
 
