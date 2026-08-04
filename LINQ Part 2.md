@@ -242,8 +242,11 @@ foreach (var item in result)
 ```
 
 6. Group students based on both branch and semester.
-// SELECT Branch, Sem, COUNT(*) AS TotalStudents FROM Students GROUP BY Branch, Sem; 
+
 ```csharp
+// SELECT Branch, Sem, COUNT(*) AS TotalStudents FROM Students GROUP BY Branch, Sem; 
+
+
 var result = students
     .GroupBy(s => new
     {
