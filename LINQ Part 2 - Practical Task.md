@@ -51,3 +51,96 @@
 | C     | 20       |
 
 13) Show month-wise completed task count.
+14) Display Role Wise Active User Count.
+15) Display each role with users assigned to it.
+16) List Roles Having More Than 10 Users.
+17) Display role statistics.
+
+| Role    | Total Users | Active Users | Inactive Users |
+| ------- | ----------- | ------------ | -------------- |
+| Student | 250         | 240          | 10             |
+| Faculty | 15          | 14           | 1              |
+| Admin   | 2           | 2            | 0              |
+
+18) Show tasks due within next 7 days.
+19) Display each project with total tasks, completed tasks, pending tasks, and average task progress.
+
+| Project | Tasks | Completed | Pending | Avg Progress |
+| ------- | ----- | --------- | ------- | ------------ |
+| ERP     | 20    | 15        | 5       | 78%          |
+
+20) Display project-wise total assigned score, earned score, and score percentage.
+
+| Project             | Total Assigned Score | Total Earned Score | Score Percentage |
+| ------------------- | -------------------: | -----------------: | ---------------: |
+| ERP System          |                  500 |                450 |           90.00% |
+| LMS Portal          |                  400 |                360 |           90.00% |
+| Inventory System    |                  300 |                240 |           80.00% |
+| Hospital Management |                  600 |                510 |           85.00% |
+
+21) Display Top 10 projects based on average earned score.
+
+| Rank | Project             | Average Score |
+| ---: | ------------------- | ------------: |
+|    1 | ERP System          |         95.50 |
+|    2 | LMS Portal          |         93.25 |
+|    3 | Inventory System    |         91.75 |
+|    4 | Hospital Management |         90.20 |
+|    5 | Library Management  |         89.50 |
+
+22) Show project count, task count, and average progress for each faculty.
+
+| Faculty     | Total Projects | Total Tasks | Avg Progress (%) |
+| ----------- | -------------: | ----------: | ---------------: |
+| Dr. Shah    |             12 |         180 |            84.50 |
+| Dr. Patel   |             10 |         150 |            79.20 |
+| Dr. Mehta   |              8 |         120 |            76.80 |
+| Dr. Trivedi |              6 |          95 |            72.10 |
+
+23) Display task completion statistics and average score for each student.
+
+| Student | Total Tasks | Completed Tasks | Pending Tasks | Avg Score |
+| ------- | ----------- | --------------- | ------------- | --------- |
+| Amit    |          20 |              18 |             2 |     92.50 |
+| Ravi    |          18 |              15 |             3 |     88.20 |
+| Neha    |          22 |              20 |             2 |     94.10 |
+| Priya   |          16 |              12 |             4 |     84.75 |
+
+24) Display projects whose expected completion date has passed but are still incomplete.
+
+| Project    | Student | Faculty   | End Date    | Progress (%) |
+| ---------- | ------- | --------- | ----------- | -----------: |
+| ERP System | Amit    | Dr. Shah  | 15-Jul-2026 |           85 |
+| LMS Portal | Ravi    | Dr. Patel | 10-Jul-2026 |           78 |
+| CRM System | Neha    | Dr. Mehta | 20-Jul-2026 |           72 |
+
+ 25) Show month-wise completed task count.
+
+| Year | Month | Completed Tasks |
+| ---: | ----: | --------------: |
+| 2026 |     1 |              45 |
+| 2026 |     2 |              52 |
+| 2026 |     3 |              60 |
+| 2026 |     4 |              71 |
+| 2026 |     5 |              80 |
+| 2026 |     6 |              92 |
+
+26) Rank faculties based on average project progress.
+
+| Rank | Faculty     | Avg Progress (%) |
+| ---: | ----------- | ---------------: |
+|    1 | Dr. Shah    |            89.50 |
+|    2 | Dr. Patel   |            85.75 |
+|    3 | Dr. Mehta   |            81.20 |
+|    4 | Dr. Trivedi |            78.90 |
+
+27) Display task statistics for every project.
+
+| Project          | Total Tasks | Completed | Pending | Overdue |
+| ---------------- | ----------: | --------: | ------: | ------: |
+| ERP System       |          20 |        18 |       2 |       0 |
+| LMS Portal       |          25 |        20 |       5 |       1 |
+| CRM System       |          18 |        12 |       6 |       2 |
+| Inventory System |          22 |        20 |       2 |       0 |
+
+28) 
