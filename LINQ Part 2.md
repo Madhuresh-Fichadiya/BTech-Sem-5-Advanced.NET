@@ -1,4 +1,4 @@
-# LINQ Lab-2: Ordering, Grouping, Joins, Aggregation
+# LINQ Lab-2: Aggregation and Grouping
 
 > Note: Reuse the `students` list defined in `LINQ Lab-1.md` sampleData for these examples.
 
