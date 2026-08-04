@@ -6,7 +6,58 @@ https://github.com/sejalgupta001/Building-REST-APIs-using-ASP.NET-Core/blob/main
 
 ---
 
-## 1. Group By Operator
+## 1. Aggregation Operators
+
+```csharp
+var students = new List<Student>
+{
+    new Student { Id = 1, Name = "Amit", Marks = 85 },
+    new Student { Id = 2, Name = "Neha", Marks = 92 },
+    new Student { Id = 3, Name = "Ravi", Marks = 78 },
+    new Student { Id = 4, Name = "Priya", Marks = 95 }
+};
+```
+
+| Operator      | Description                                                                        | Return Type         | Example                           | Output |
+| ------------- | ---------------------------------------------------------------------------------- | ------------------- | --------------------------------- |--------|
+| `Count()`     | Returns the total number of elements.                                              | `int`               | `students.Count()`                | 4      |
+| `Sum()`       | Calculates the sum of numeric values.                                              | Numeric Type        | `students.Sum(s => s.Marks)`      | 350    |
+| `Average()`   | Calculates the average of numeric values.                                          | Numeric Type        | `students.Average(s => s.Marks)`  | 87.5   |
+| `Min()`       | Returns the smallest value.                                                        | Same as source type | `students.Min(s => s.Marks)`      | 78     |
+| `Max()`       | Returns the largest value.                                                         | Same as source type | `students.Max(s => s.Marks)`      | 95     |
+| `Aggregate()` | Applies a custom accumulation function to the collection.                          | Custom              | `students.Select(s => s.Name).Aggregate((x,y) => x + ", " + y)` | Amit, Neha, Ravi, Priya   |
+
+
+1. Total Number of Students
+```csharp
+var totalStudents = students.Count();
+
+Console.WriteLine($"Total Students: {totalStudents}");
+```
+2. Average CPI of All Students
+```csharp
+var avgCPI = students.Average(s => s.CPI);
+Console.WriteLine($"Average CPI: {avgCPI}");
+```
+3. Highest CPI
+```csharp
+var highestCPI = students.Max(s => s.CPI);
+Console.WriteLine($"Highest CPI: {highestCPI}");
+```
+4. Lowest CPI
+```csharp
+var lowestCPI = students.Min(s => s.CPI);
+Console.WriteLine($"Lowest CPI: {lowestCPI}");
+```
+5. Total Semester Sum
+```csharp
+var totalSem = students.Sum(s => s.Sem);
+Console.WriteLine($"Total Semesters Sum: {totalSem}");
+```
+
+
+
+## 2. Group By Operator
 
 GroupBy() is used to group records based on a common key. It is similar to SQL's GROUP BY clause.
 
@@ -49,7 +100,7 @@ MBA
 BCA
  └─ Kiran
 ```
-Baic Group By:
+Basic Group By:
 ```csharp
 var groups = students.GroupBy(s => s.Department);
 
