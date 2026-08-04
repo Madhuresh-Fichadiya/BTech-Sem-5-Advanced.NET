@@ -44,8 +44,31 @@
 
 
 9) Display the bottom 10 students based on average earned score.
+
+| Rank | Student | Total Tasks | Average Score |
+| ---: | ------- | ----------: | ------------: |
+|    1 | Rahul   |          15 |         45.20 |
+|    2 | Karan   |          18 |         48.50 |
+|    3 | Priya   |          20 |         50.10 |
+|    4 | Riya    |          16 |         52.40 |
+|    5 | Aman    |          19 |         54.00 |
+
 10) Display all tasks whose due date has passed but are not completed.
+
+| Task ID | Task Title      | Student | Faculty   | Due Date    | Days Overdue |
+| ------- | --------------- | ------- | --------- | ----------- | -----------: |
+| 201     | API Security    | Amit    | Dr. Shah  | 20-Jul-2026 |           15 |
+| 202     | Role Management | Ravi    | Dr. Patel | 25-Jul-2026 |           10 |
+| 203     | Dashboard UI    | Neha    | Dr. Mehta | 28-Jul-2026 |            7 |
+
 11) Display tasks having follow-up dates within the next 7 days.
+
+| Task Title         | Student | Faculty   | Follow-Up Date |
+| ------------------ | ------- | --------- | -------------- |
+| JWT Authentication | Amit    | Dr. Shah  | 06-Aug-2026    |
+| Dashboard API      | Ravi    | Dr. Patel | 08-Aug-2026    |
+| Testing Module     | Neha    | Dr. Mehta | 10-Aug-2026    |
+
 12) Show how many students have obtained each grade.
 
 | Grade | Students |
@@ -55,9 +78,43 @@
 | C     | 20       |
 
 13) Show month-wise completed task count.
+
+| Year | Month    | Completed Tasks |
+| ---: | -------- | --------------: |
+| 2026 | January  |              45 |
+| 2026 | February |              52 |
+| 2026 | March    |              68 |
+| 2026 | April    |              81 |
+| 2026 | May      |              94 |
+| 2026 | June     |             105 |
+
 14) Display Role Wise Active User Count.
+
+| Role        | Active Users |
+| ----------- | -----------: |
+| Student     |          285 |
+| Faculty     |           17 |
+| Admin       |            3 |
+| Coordinator |            2 |
+
 15) Display each role with users assigned to it.
+
+| Role    | User Name |
+| ------- | --------- |
+| Admin   | Madhuresh |
+| Admin   | Ravi      |
+| Faculty | Dr. Shah  |
+| Faculty | Dr. Patel |
+| Student | Amit      |
+| Student | Neha      |
+
 16) List Roles Having More Than 10 Users.
+
+| Role    | Total Users |
+| ------- | ----------: |
+| Student |         285 |
+| Faculty |          17 |
+
 17) Display role statistics.
 
 | Role    | Total Users | Active Users | Inactive Users |
@@ -67,6 +124,13 @@
 | Admin   | 2           | 2            | 0              |
 
 18) Show tasks due within next 7 days.
+
+| Task ID | Task Title         | Project    | Student | Due Date    | Days Remaining |
+| ------- | ------------------ | ---------- | ------- | ----------- | -------------: |
+| 101     | JWT Authentication | ERP System | Amit    | 10-Aug-2026 |              6 |
+| 102     | Dashboard UI       | LMS Portal | Ravi    | 08-Aug-2026 |              4 |
+| 103     | API Testing        | CRM System | Neha    | 06-Aug-2026 |              2 |
+
 19) Display each project with total tasks, completed tasks, pending tasks, and average task progress.
 
 | Project | Tasks | Completed | Pending | Avg Progress |
