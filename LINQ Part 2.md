@@ -9,13 +9,18 @@ https://github.com/sejalgupta001/Building-REST-APIs-using-ASP.NET-Core/blob/main
 ## 1. Aggregation Operators
 
 ```csharp
-var students = new List<Student>
+var sampleData = new[]
 {
-    new Student { Id = 1, Name = "Amit", Marks = 85 },
-    new Student { Id = 2, Name = "Neha", Marks = 92 },
-    new Student { Id = 3, Name = "Ravi", Marks = 78 },
-    new Student { Id = 4, Name = "Priya", Marks = 95 }
-};
+    new { Name = "Amit", Branch = "CE", Sem = 3, CPI = 8.5, ExtraValue = (object)"Topper", Courses = new List<string>() { "C#", "DBMS" } },
+    new { Name = "Neha", Branch = "IT", Sem = 4, CPI = 9.1, ExtraValue = (object)100, Courses = new List<string>() { "Java", "AI" } },
+    new { Name = "Raj", Branch = "CE", Sem = 3, CPI = 7.8, ExtraValue = (object)"Sports", Courses = new List<string>() { "C#", "Math" } },
+    new { Name = "Priya", Branch = "IT", Sem = 5, CPI = 8.9, ExtraValue = (object)200, Courses = new List<string>() { "Python", "DBMS" } },
+    new { Name = "Kiran", Branch = "ME", Sem = 2, CPI = 7.2, ExtraValue = (object)"Workshop", Courses = new List<string>() { "CAD", "Physics" } },
+    new { Name = "Pooja", Branch = "CE", Sem = 4, CPI = 8.3, ExtraValue = (object)150, Courses = new List<string>() { "C#", "Data Structures" } },
+    new { Name = "Rahul", Branch = "EC", Sem = 6, CPI = 7.9, ExtraValue = (object)"Robotics", Courses = new List<string>() { "Signals", "IoT" } },
+    new { Name = "Sneha", Branch = "IT", Sem = 3, CPI = 8.7, ExtraValue = (object)"Hackathon", Courses = new List<string>() { "Python", "Web" } },
+    new { Name = "Vivek", Branch = "CE", Sem = 5, CPI = 6.9, ExtraValue = (object)75, Courses = new List<string>() { "JavaScript", "DBMS" } },
+    new { Name = "Anjali", Branch = "ME", Sem = 4, CPI = 8.1, ExtraValue = (object)"Design", Courses = new List<string>() { "CAD", "Thermodynamics" } }   
 ```
 
 | Operator      | Description                                                                        | Return Type         | Example                           | Output |
