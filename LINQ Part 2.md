@@ -73,7 +73,7 @@ Console.WriteLine($"Students with CPI > 8 : {topperCount}");
 var totalCourses = students.Sum(s => s.Courses.Count);
 
 Console.WriteLine($"Total Course Registrations: {totalCourses}");
-
+```
 
 ## 2. Group By Operator
 
@@ -142,3 +142,157 @@ Output:
 | -------- | -------------------------------- |
 | Key      | Group value (MCA, MBA, BCA)      |
 | Elements | Students belonging to that group |
+
+
+**Examples:**
+
+1. Group Students by Branch
+```csharp
+var result = students
+    .GroupBy(s => s.Branch);
+
+foreach (var group in result)
+{
+    Console.WriteLine($"Branch: {group.Key}");
+
+    foreach (var student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+}
+```
+
+2. Group Students by Semester
+```csharp
+var result = students
+    .GroupBy(s => s.Sem);
+
+foreach (var group in result)
+{
+    Console.WriteLine($"Semester: {group.Key}");
+
+    foreach (var student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+}
+```
+
+3. Group Students by Branch and Count
+```
+var result = students
+    .GroupBy(s => s.Branch)
+    .Select(g => new
+    {
+        Branch = g.Key,
+        TotalStudents = g.Count()
+    });
+
+foreach (var item in result)
+{
+    Console.WriteLine($"{item.Branch} : {item.TotalStudents}");
+}
+```
+
+4. Group Students by Branch and Average CPI
+```csharp
+var result = students
+    .GroupBy(s => s.Branch)
+    .Select(g => new
+    {
+        Branch = g.Key,
+        AvgCPI = g.Average(x => x.CPI)
+    });
+
+foreach (var item in result)
+{
+    Console.WriteLine($"{item.Branch} : {item.AvgCPI:F2}");
+}
+```
+
+5. Group Students by Semester and Find Highest CPI
+
+```csharp
+var result = students
+    .GroupBy(s => s.Sem)
+    .Select(g => new
+    {
+        Semester = g.Key,
+        HighestCPI = g.Max(x => x.CPI)
+    });
+
+foreach (var item in result)
+{
+    Console.WriteLine($"Sem {item.Semester} : {item.HighestCPI}");
+}
+```
+
+6. Group Students by Branch and Semester
+
+```csharp
+var result = students
+    .GroupBy(s => new
+    {
+        s.Branch,
+        s.Sem
+    });
+
+foreach (var group in result)
+{
+    Console.WriteLine(
+        $"Branch={group.Key.Branch}, Sem={group.Key.Sem}");
+
+    foreach (var student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+}
+```
+
+7. Group Students by CPI Grade
+
+```csharp
+var result = students
+    .GroupBy(s =>
+    {
+        if (s.CPI >= 9)
+            return "Excellent";
+
+        if (s.CPI >= 8)
+            return "Good";
+
+        if (s.CPI >= 7)
+            return "Average";
+
+        return "Poor";
+    });
+
+foreach (var group in result)
+{
+    Console.WriteLine(group.Key);
+
+    foreach (var student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+}
+```
+
+8. Group by Branch and Show Topper of Each Branch
+
+```csharp
+var result = students
+    .GroupBy(s => s.Branch)
+    .Select(g => new
+    {
+        Branch = g.Key,
+        Topper = g.OrderByDescending(x => x.CPI)
+                  .First()
+    });
+
+foreach (var item in result)
+{
+    Console.WriteLine(
+        $"{item.Branch} : {item.Topper.Name} ({item.Topper.CPI})");
+}
+```
