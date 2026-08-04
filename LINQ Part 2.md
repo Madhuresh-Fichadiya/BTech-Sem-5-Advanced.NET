@@ -66,6 +66,7 @@ foreach (var group in groups) // To Get Individual Key (Department Details)
 ```
 
 Output:
+
 <img width="212" height="201" alt="image" src="https://github.com/user-attachments/assets/73553644-89a7-4115-8c3d-2db223a92ad9" />
 
 | Property | Description                      |
