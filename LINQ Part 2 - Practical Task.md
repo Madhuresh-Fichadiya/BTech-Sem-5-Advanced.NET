@@ -1,7 +1,9 @@
 ## Task 1: Different Dashboard Statstics
 
 **1) Display the total number of students registered in the system.**
+
 **2) Display the total number of faculty members guiding projects.**
+
 **3) Display the total number of projects available in the system.**
 
 **4) Show how many tasks belong to each status category.**
