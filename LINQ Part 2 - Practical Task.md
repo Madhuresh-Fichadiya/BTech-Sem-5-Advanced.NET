@@ -1,10 +1,10 @@
 ## Task 1: Different Dashboard Statstics
 
-1) Display the total number of students registered in the system.
-2) Display the total number of faculty members guiding projects.
-3) Display the total number of projects available in the system.
+**1) Display the total number of students registered in the system.**
+**2) Display the total number of faculty members guiding projects.**
+**3) Display the total number of projects available in the system.**
 
-4) Show how many tasks belong to each status category.
+**4) Show how many tasks belong to each status category.**
 
 | Status    | Tasks |
 | --------- | ----- |
@@ -13,7 +13,7 @@
 | Ongoing   | 30    |
 | Cancelled | 10    |
 
-5) Show priority wise task count
+**5) Show priority wise task count**
 
 | Priority | Tasks |
 | -------- | ----- |
@@ -21,21 +21,21 @@
 | Moderate | 80    |
 | Low      | 50    |
 
-6) Show how many projects are assigned to each faculty member.
+**6) Show how many projects are assigned to each faculty member.**
 
 | Faculty   | Projects |
 | --------- | -------- |
 | Dr. Shah  | 15       |
 | Dr. Patel | 12       |
 
-7) Show how many tasks have been assigned to each student.
+**7) Show how many tasks have been assigned to each student.**
 
 | Student | Tasks |
 | ------- | ----- |
 | Amit    | 15    |
 | Ravi    | 12    |
 
-8) Display the top 10 students having the highest average earned score.
+**8) Display the top 10 students having the highest average earned score.**
 
 | Student | Avg Score |
 | ------- | --------- |
@@ -43,7 +43,7 @@
 | Neha    | 90        |
 
 
-9) Display the bottom 10 students based on average earned score.
+**9) Display the bottom 10 students based on average earned score.**
 
 | Rank | Student | Total Tasks | Average Score |
 | ---: | ------- | ----------: | ------------: |
@@ -53,7 +53,7 @@
 |    4 | Riya    |          16 |         52.40 |
 |    5 | Aman    |          19 |         54.00 |
 
-10) Display all tasks whose due date has passed but are not completed.
+**10) Display all tasks whose due date has passed but are not completed.**
 
 | Task ID | Task Title      | Student | Faculty   | Due Date    | Days Overdue |
 | ------- | --------------- | ------- | --------- | ----------- | -----------: |
@@ -61,7 +61,7 @@
 | 202     | Role Management | Ravi    | Dr. Patel | 25-Jul-2026 |           10 |
 | 203     | Dashboard UI    | Neha    | Dr. Mehta | 28-Jul-2026 |            7 |
 
-11) Display tasks having follow-up dates within the next 7 days.
+**11) Display tasks having follow-up dates within the next 7 days.**
 
 | Task Title         | Student | Faculty   | Follow-Up Date |
 | ------------------ | ------- | --------- | -------------- |
@@ -69,7 +69,7 @@
 | Dashboard API      | Ravi    | Dr. Patel | 08-Aug-2026    |
 | Testing Module     | Neha    | Dr. Mehta | 10-Aug-2026    |
 
-12) Show how many students have obtained each grade.
+**12) Show how many students have obtained each grade.**
 
 | Grade | Students |
 | ----- | -------- |
@@ -77,7 +77,7 @@
 | B     | 45       |
 | C     | 20       |
 
-13) Show month-wise completed task count.
+**13) Show month-wise completed task count.**
 
 | Year | Month    | Completed Tasks |
 | ---: | -------- | --------------: |
@@ -88,7 +88,7 @@
 | 2026 | May      |              94 |
 | 2026 | June     |             105 |
 
-14) Display Role Wise Active User Count.
+**14) Display Role Wise Active User Count.**
 
 | Role        | Active Users |
 | ----------- | -----------: |
@@ -97,7 +97,7 @@
 | Admin       |            3 |
 | Coordinator |            2 |
 
-15) Display each role with users assigned to it.
+**15) Display each role with users assigned to it.**
 
 | Role    | User Name |
 | ------- | --------- |
@@ -108,14 +108,14 @@
 | Student | Amit      |
 | Student | Neha      |
 
-16) List Roles Having More Than 10 Users.
+**16) List Roles Having More Than 10 Users.**
 
 | Role    | Total Users |
 | ------- | ----------: |
 | Student |         285 |
 | Faculty |          17 |
 
-17) Display role statistics.
+**17) Display role statistics.**
 
 | Role    | Total Users | Active Users | Inactive Users |
 | ------- | ----------- | ------------ | -------------- |
@@ -123,7 +123,7 @@
 | Faculty | 15          | 14           | 1              |
 | Admin   | 2           | 2            | 0              |
 
-18) Show tasks due within next 7 days.
+**18) Show tasks due within next 7 days.**
 
 | Task ID | Task Title         | Project    | Student | Due Date    | Days Remaining |
 | ------- | ------------------ | ---------- | ------- | ----------- | -------------: |
@@ -131,13 +131,13 @@
 | 102     | Dashboard UI       | LMS Portal | Ravi    | 08-Aug-2026 |              4 |
 | 103     | API Testing        | CRM System | Neha    | 06-Aug-2026 |              2 |
 
-19) Display each project with total tasks, completed tasks, pending tasks, and average task progress.
+**19) Display each project with total tasks, completed tasks, pending tasks, and average task progress.**
 
 | Project | Tasks | Completed | Pending | Avg Progress |
 | ------- | ----- | --------- | ------- | ------------ |
 | ERP     | 20    | 15        | 5       | 78%          |
 
-20) Display project-wise total assigned score, earned score, and score percentage.
+**20) Display project-wise total assigned score, earned score, and score percentage.**
 
 | Project             | Total Assigned Score | Total Earned Score | Score Percentage |
 | ------------------- | -------------------: | -----------------: | ---------------: |
@@ -146,7 +146,7 @@
 | Inventory System    |                  300 |                240 |           80.00% |
 | Hospital Management |                  600 |                510 |           85.00% |
 
-21) Display Top 10 projects based on average earned score.
+**21) Display Top 10 projects based on average earned score.**
 
 | Rank | Project             | Average Score |
 | ---: | ------------------- | ------------: |
@@ -156,7 +156,7 @@
 |    4 | Hospital Management |         90.20 |
 |    5 | Library Management  |         89.50 |
 
-22) Show project count, task count, and average progress for each faculty.
+**22) Show project count, task count, and average progress for each faculty.**
 
 | Faculty     | Total Projects | Total Tasks | Avg Progress (%) |
 | ----------- | -------------: | ----------: | ---------------: |
@@ -165,7 +165,7 @@
 | Dr. Mehta   |              8 |         120 |            76.80 |
 | Dr. Trivedi |              6 |          95 |            72.10 |
 
-23) Display task completion statistics and average score for each student.
+**23) Display task completion statistics and average score for each student.**
 
 | Student | Total Tasks | Completed Tasks | Pending Tasks | Avg Score |
 | ------- | ----------- | --------------- | ------------- | --------- |
@@ -174,7 +174,7 @@
 | Neha    |          22 |              20 |             2 |     94.10 |
 | Priya   |          16 |              12 |             4 |     84.75 |
 
-24) Display projects whose expected completion date has passed but are still incomplete.
+**24) Display projects whose expected completion date has passed but are still incomplete.**
 
 | Project    | Student | Faculty   | End Date    | Progress (%) |
 | ---------- | ------- | --------- | ----------- | -----------: |
@@ -182,7 +182,7 @@
 | LMS Portal | Ravi    | Dr. Patel | 10-Jul-2026 |           78 |
 | CRM System | Neha    | Dr. Mehta | 20-Jul-2026 |           72 |
 
- 25) Show month-wise completed task count.
+**25) Show month-wise completed task count.**
 
 | Year | Month | Completed Tasks |
 | ---: | ----: | --------------: |
@@ -193,7 +193,7 @@
 | 2026 |     5 |              80 |
 | 2026 |     6 |              92 |
 
-26) Rank faculties based on average project progress.
+**26) Rank faculties based on average project progress.**
 
 | Rank | Faculty     | Avg Progress (%) |
 | ---: | ----------- | ---------------: |
@@ -202,7 +202,7 @@
 |    3 | Dr. Mehta   |            81.20 |
 |    4 | Dr. Trivedi |            78.90 |
 
-27) Display task statistics for every project.
+**27) Display task statistics for every project.**
 
 | Project          | Total Tasks | Completed | Pending | Overdue |
 | ---------------- | ----------: | --------: | ------: | ------: |
@@ -210,5 +210,3 @@
 | LMS Portal       |          25 |        20 |       5 |       1 |
 | CRM System       |          18 |        12 |       6 |       2 |
 | Inventory System |          22 |        20 |       2 |       0 |
-
-28) 
