@@ -216,7 +216,7 @@ var result = students
 
 foreach (var item in result)
 {
-    Console.WriteLine($"{item.Branch} : {item.AvgCPI:F2}");
+    Console.WriteLine($"{item.Branch} : {item.AvgCPI}");
 }
 ```
 
