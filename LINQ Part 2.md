@@ -15,8 +15,6 @@ https://github.com/sejalgupta001/Building-REST-APIs-using-ASP.NET-Core/blob/main
 | `Average()`   | Calculates the average of numeric values.                                          | Numeric Type        | `students.Average(s => s.Marks)`  | 87.5   |
 | `Min()`       | Returns the smallest value.                                                        | Same as source type | `students.Min(s => s.Marks)`      | 78     |
 | `Max()`       | Returns the largest value.                                                         | Same as source type | `students.Max(s => s.Marks)`      | 95     |
-| `Aggregate()` | Applies a custom accumulation function to the collection.                          | Custom              | `students.Select(s => s.Name).Aggregate((x,y) => x + ", " + y)` | Amit, Neha, Ravi, Priya   |
-
 
 ```csharp
 var sampleData = new[]
