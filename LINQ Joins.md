@@ -3,6 +3,7 @@
 ## Types of Joins
 - Inner Join
 - Left Join
+- Right Join
 
 Consider below model classes
 ```csharp
@@ -168,6 +169,40 @@ FROM Students s
 LEFT JOIN Departments d
     ON s.DepartmentId = d.DepartmentId
 ```
+
+---
+# Right Join
+
+```csharp
+var result = _context.Students
+
+    .RightJoin(
+    _context.Departments,
+    student => student.DepartmentId,
+    department => department.DepartmentId,
+    (student, department) => new
+    {
+        DepartmentName = department.DepartmentName,
+
+        StudentName = 
+            student != null
+                ? student.Name
+                : "No Student"
+    });
+
+        return result != null ? Ok(result) : NotFound();
+    }
+```
+Genereatd SQL:
+```sql
+SELECT [d].[DepartmentName], CASE
+    WHEN [s].[StudentId] IS NOT NULL THEN [s].[Name]
+    ELSE N'No Student'
+END AS [StudentName]
+FROM [Students] AS [s]
+RIGHT JOIN [Departments] AS [d] ON [s].[DepartmentId] = [d].[DepartmentId]
+```
+
 ---
 
 # When to use Include()?
