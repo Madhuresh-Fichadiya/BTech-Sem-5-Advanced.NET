@@ -2,8 +2,8 @@
 
 ## Types of Joins
 - Inner Join
-- Left Join
-- Right Join
+- Left Outer Join
+- Right Outer Join
 
 Consider below model classes
 ```csharp
