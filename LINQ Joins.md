@@ -174,10 +174,11 @@ LEFT JOIN Departments d
 
 ## Can Include() be used instead of LeftJoin() and RightJoin()?
 
-Include() is not a join operator; it is an eager-loading operator.
-Include() often results in SQL that behaves like a LEFT JOIN.
-Therefore, LEFT JOIN-like behavior can be achieved using Include().
-Include() does not directly provide RIGHT JOIN semantics. To achieve the same result as a RIGHT JOIN, query from the opposite entity (swap the root table) and use Include() or navigation properties.
+- Include() is not a join operator; it is an eager-loading operator.
+- Include() often results in SQL that behaves like a LEFT JOIN.
+- Therefore, LEFT JOIN-like behavior can be achieved using Include().
+- Include() does not directly provide RIGHT JOIN semantics.
+- To achieve the same result as a RIGHT JOIN, query from the opposite entity (swap the root table) and use Include() or navigation properties.
 
 
 # Right Join
