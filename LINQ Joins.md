@@ -181,7 +181,7 @@ LEFT JOIN Departments d
 - To achieve the same result as a RIGHT JOIN, query from the opposite entity (swap the root table) and use Include() or navigation properties.
 
 
-# Right Join
+# Right Outer Join
 
 ```csharp
 var result = _context.Students
