@@ -248,6 +248,9 @@ public IActionResult UpdateStudent(StudentDTO student)
 Which gives response as below
 <img width="1562" height="736" alt="Update" src="https://github.com/user-attachments/assets/708a47f7-c61b-401c-8913-910db932f789" />
 
+
+if no record found then,
+
 <img width="1575" height="722" alt="Updaet 2" src="https://github.com/user-attachments/assets/11a323a0-7f95-4eac-8fe8-3ce9205d277f" />
 
 ---
@@ -294,5 +297,8 @@ public async Task<IActionResult> DeleteById(int StudentId)
 Which gives response as below
 
 <img width="1556" height="729" alt="Delete" src="https://github.com/user-attachments/assets/f94e75cd-bda5-4a3b-8b6d-eef858ab7d54" />
+
+
+If no record found then,
 
 <img width="1573" height="737" alt="Delete 2" src="https://github.com/user-attachments/assets/5044d056-ba4c-4fd9-bb70-039f1cc3c8cd" />
