@@ -125,7 +125,7 @@ public async Task<IActionResult> GetStudents()
 {
     var result = await _context.Students
 
-    .GroupJoin(
+    .LeftJoin(
       _context.Departments,               // Right table
       student => student.DepartmentId,    // Student FK
       department => department.DepartmentId, // Department PK
