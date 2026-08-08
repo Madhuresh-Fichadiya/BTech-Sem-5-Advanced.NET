@@ -32,7 +32,7 @@ Consider below API Endpoints:
 **1. Frontend Complexity**
 
 Frontend developers must write different logic for every API.
-```json
+```jquery
 if(response.studentId)
 {
    // Handle Student
@@ -53,7 +53,7 @@ As APIs grow, this becomes messy.
 **2. Inconsistent Error Handling**
 
 Some APIs return:
-```json
+```jquery
 {
   "message":"Not Found"
 }
@@ -67,7 +67,7 @@ Others return:
 ```
 
 Others:
-```json
+```jquery
 {
   "status":"Failed"
 }
