@@ -89,7 +89,7 @@ Without a standard contract:
 Suppose you want to log all API failures.
 
 Without a common structure:
-```json
+```jquery
 API1 -> error
 API2 -> message
 API3 -> exception
@@ -101,7 +101,7 @@ No consistency.
 
 ## Common Response Structure
 
-```json
+```jquery
 {
   "success": true,
   "message": "Data Retrieved Successfully",
