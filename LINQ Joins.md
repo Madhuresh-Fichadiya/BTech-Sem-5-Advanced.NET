@@ -123,25 +123,23 @@ Then:
 [HttpGet]
 public async Task<IActionResult> GetStudents()
 {
-    var result = await _context.Students
-
     .LeftJoin(
-      _context.Departments,               // Right table
-      student => student.DepartmentId,    // Student FK
-      department => department.DepartmentId, // Department PK
-      (student, departmentGroup) => new
-      {
-          Student = student,
-          Departments = departmentGroup
-      })
-      .SelectMany(
-        x => x.Departments.DefaultIfEmpty(),
-        (x, department) => new        // Result
-        {
-            StudentName = x.Student.Name,
-            DepartmentName = department != null? department.DepartmentName : "No Department"
-        })
-      .ToListAsync();
+
+    _context.Departments,               // Right source
+
+    student => student.DepartmentId,    // Left key
+
+    department => department.DepartmentId, // Right key
+
+    (student, department) => new        // Result selector
+    {
+        StudentName = student.Name,
+
+        DepartmentName =
+            department != null
+                ? department.DepartmentName
+                : "No Department"
+    });
 }
 ```
 **We can also perform `Left Join` using `Include()`, As per below sample:**
