@@ -189,7 +189,14 @@ student.Department.DepartmentCode
 ...
 ```
 and all other Department properties.
-
+Generated SQL:
+```csharp
+SELECT [s].[StudentId], [s].[Created], [s].[DepartmentId], [s].[EnrollmentNumber], [s].[LastUpdated], [s].[Name],
+    [d].[DepartmentId], [d].[DepartmentCode], [d].[DepartmentName]
+FROM [Students] AS [s]
+INNER JOIN [Departments] AS [d]
+ON [s].[DepartmentId] = [d].[DepartmentId]
+```
 ---
 
 # When NOT to use Include()?
@@ -206,4 +213,11 @@ var students = await _context.Students
             : "No Department"
     })
     .ToListAsync();
+```
+Generate SQL For Above Query:
+```sql
+SELECT [s].[StudentId], [s].[Name], [d].[DepartmentName]
+FROM [Students] AS [s]
+INNER JOIN [Departments] AS [d]
+ON [s].[DepartmentId] = [d].[DepartmentId]
 ```
