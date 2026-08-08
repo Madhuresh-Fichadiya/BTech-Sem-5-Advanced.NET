@@ -170,7 +170,6 @@ FROM Students s
 LEFT JOIN Departments d
     ON s.DepartmentId = d.DepartmentId
 ```
-
 ---
 
 # When to use Include()?
@@ -190,7 +189,6 @@ student.Department.DepartmentCode
 ```
 and all other Department properties.
 Generated SQL:
-```csharp
 ```sql
 SELECT [s].[StudentId], [s].[Created], [s].[DepartmentId], [s].[EnrollmentNumber], [s].[LastUpdated], [s].[Name],
     [d].[DepartmentId], [d].[DepartmentCode], [d].[DepartmentName]
