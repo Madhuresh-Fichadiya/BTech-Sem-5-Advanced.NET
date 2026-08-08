@@ -144,3 +144,66 @@ public async Task<IActionResult> GetStudents()
       .ToListAsync();
 }
 ```
+We can also perform `Left Join` using `Include()`, As per below sample:
+Suppose Model class has Optional Departments Navigation Properties:
+```csharp
+public int? DepartmentId { get; set; }
+
+public Department? Department { get; set; }
+```
+Then EF Core Generates LEFT JOIN Automatically:
+```csharp
+var students = await _context.Students
+    .Include(s => s.Department)
+    .ToListAsync();
+```
+
+EF Core typically generates a LEFT JOIN:
+```sql
+SELECT
+    s.StudentId,
+    s.Name,
+    s.DepartmentId,
+    d.DepartmentId,
+    d.DepartmentName
+FROM Students s
+LEFT JOIN Departments d
+    ON s.DepartmentId = d.DepartmentId
+```
+
+---
+
+# When to use Include()?
+Use Include() when you need the entire related entity.
+```csharp
+var students = await _context.Students
+    .Include(s => s.Department)
+    .ToListAsync();
+```
+
+We Get:
+```cshap
+student.Department.DepartmentName
+student.Department.DepartmentCode
+...
+...
+```
+and all other Department properties.
+
+---
+
+# When NOT to use Include()?
+If we need a few fields, prefer projection (Select) as below. Because Include() loads all Student columns + all Department columns. So It becomes Less Efficient.
+
+```csharp
+var students = await _context.Students
+    .Select(s => new
+    {
+        s.StudentId,
+        s.Name,
+        DepartmentName = s.Department != null
+            ? s.Department.DepartmentName
+            : "No Department"
+    })
+    .ToListAsync();
+```
