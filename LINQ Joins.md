@@ -41,6 +41,9 @@ public class Department
 When we want to do apply Inner Join we could write:
 
 ```csharp
+[HttpGet]
+public async Task<IActionResult> GetStudents()
+{
 var result = await _context.Students
 
     .Join(
@@ -62,6 +65,7 @@ var result = await _context.Students
         })
 
     .ToListAsync();
+}
 ```
 
 Which will generate Below SQL:
@@ -124,6 +128,7 @@ Then:
 [HttpGet]
 public async Task<IActionResult> GetStudents()
 {
+     var students = await _context.Students
     .LeftJoin(
 
     _context.Departments,               // Right source
@@ -152,9 +157,13 @@ public Department? Department { get; set; }
 ```
 Then EF Core Generates LEFT JOIN Automatically:
 ```csharp
+[HttpGet]
+public async Task<IActionResult> GetStudents()
+{
 var students = await _context.Students
     .Include(s => s.Department)
     .ToListAsync();
+}
 ```
 
 EF Core typically generates a LEFT JOIN:
@@ -184,7 +193,10 @@ LEFT JOIN Departments d
 # Right Outer Join
 
 ```csharp
-var result = _context.Students
+[HttpGet]
+public async Task<IActionResult> GetStudents()
+{
+    var result = _context.Students
 
     .RightJoin(
     _context.Departments,
@@ -202,6 +214,7 @@ var result = _context.Students
 
         return result != null ? Ok(result) : NotFound();
     }
+}
 ```
 Genereatd SQL:
 ```sql
