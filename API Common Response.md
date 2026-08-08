@@ -133,6 +133,8 @@ public class ApiResponse<T>
 }
 ```
 
+---
+
 **API 1: Get All Endpoint**
 Implement Common Response Class in GetAll() as below:
 
@@ -161,6 +163,8 @@ public async Task<IActionResult> GetAll()
 Which gives response as below
 
 <img width="1918" height="705" alt="GetAll" src="https://github.com/user-attachments/assets/48ef1a7e-0cd9-4b35-9004-cf61e0e12902" />
+
+---
 
 **API 2: Post Endpoint**
 
@@ -199,7 +203,10 @@ public async Task<IActionResult> AddStudent(StudentDTO student)
 
 <img width="1568" height="725" alt="Post" src="https://github.com/user-attachments/assets/b87cd062-f5a7-45ab-981f-5dfe9e59ec6e" />
 
+---
+
 **API 3: Update Endpoint**
+
 ```csharp
 [HttpPut]
 public IActionResult UpdateStudent(StudentDTO student)
@@ -238,12 +245,12 @@ public IActionResult UpdateStudent(StudentDTO student)
 }
 ```
 
-
 Which gives response as below
 <img width="1562" height="736" alt="Update" src="https://github.com/user-attachments/assets/708a47f7-c61b-401c-8913-910db932f789" />
 
 <img width="1575" height="722" alt="Updaet 2" src="https://github.com/user-attachments/assets/11a323a0-7f95-4eac-8fe8-3ce9205d277f" />
 
+---
 
 **API 4: Delete Endpoint**
 ```csharp
