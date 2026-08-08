@@ -144,7 +144,7 @@ public async Task<IActionResult> GetStudents()
       .ToListAsync();
 }
 ```
-We can also perform `Left Join` using `Include()`, As per below sample:
+**We can also perform `Left Join` using `Include()`, As per below sample:**
 Suppose Model class has Optional Departments Navigation Properties:
 ```csharp
 public int? DepartmentId { get; set; }
