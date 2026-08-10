@@ -254,7 +254,7 @@ ON [s].[DepartmentId] = [d].[DepartmentId]
 ```
 ---
 
-# When NOT to use Include()?
+# When to use Include() with Projection (Select() Method)?
 If we need a few fields, prefer projection (Select) as below. Because Include() loads all Student columns + all Department columns. So It becomes Less Efficient.
 
 ```csharp
