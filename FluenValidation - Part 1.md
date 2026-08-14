@@ -88,6 +88,11 @@ public class StudentValidator : AbstractValidator<StudentDTO>
     }
 }
 ```
+**Important: Observer, Here we have applied validation on DTO rather than actual models.**
+As we know, DTO handles only API request and response. and we want to apply restriction on input. so we have applied validation rules on DTO.
+
+--- 
+
 ### Step 3: Register validator in Program.cs
 
 ```csharp
@@ -106,6 +111,7 @@ app.MapControllers();
 
 app.Run();
 ```
+---
 
 ### Step 4: Call Validator Manually in Controller
 
@@ -141,6 +147,7 @@ public class StudentController : ControllerBase
 <img width="1744" height="718" alt="FV-Image4" src="https://github.com/user-attachments/assets/6e782fe4-ac67-41aa-9a6e-010d19b04e4c" />
 
 ---
+
 # Common Validators
 | Validator Name             | Task of Validator                                           | Code Snippet                                                | Example Output                                          |
 | -------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
