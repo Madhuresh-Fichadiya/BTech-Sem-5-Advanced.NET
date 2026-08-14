@@ -39,7 +39,7 @@ For ex:
 - FluentValidation.DependencyInjectionExtensions
 
 ### Step 2: Create Validator Class
-Create a Folder Named Validators, Inside Validator Folder create all validator classes (Validator/StudentValidator.cs)
+Create a Folder Named `Validators`, Inside Validator Folder create all validator classes create `StudentValidator.cs`
 ```csharp
 //Validator/StudentValidator.cs
 using FluentValidation;
