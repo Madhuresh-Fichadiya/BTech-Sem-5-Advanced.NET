@@ -58,6 +58,10 @@ public class StudentValidator : AbstractValidator<StudentDTO>
             .Must(name => !string.IsNullOrWhiteSpace(name))
             .WithMessage("Student Name cannot be empty or whitespace")
 
+            //Name cannot contain numbers
+            .Must(name => !name.Any(char.IsDigit))
+            .WithMessage("Student Name cannot contain Digits")
+
             // Name length must not exceed 100 characters
             .MaximumLength(100)
             .WithMessage("Student Name cannot exceed 100 characters");
@@ -136,4 +140,20 @@ public class StudentController : ControllerBase
 
 <img width="1744" height="718" alt="FV-Image4" src="https://github.com/user-attachments/assets/6e782fe4-ac67-41aa-9a6e-010d19b04e4c" />
 
+---
+# Common Validators
+| Validator Name             | Task of Validator                                           | Code Snippet                                                | Example Output                                          |
+| -------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| **NotNull()**              | Ensures value is not `null`                                 | `RuleFor(x => x.Name).NotNull();`                           | `"Name must not be empty."`                             |
+| **NotEmpty()**             | Ensures value is not `null`, empty string, or default value | `RuleFor(x => x.Name).NotEmpty();`                          | `"Name must not be empty."`                             |
+| **Equal()**                | Value must match specified value                            | `RuleFor(x => x.DepartmentId).Equal(1);`                    | `"Department Id must be equal to '1'."`                 |
+| **NotEqual()**             | Value must not match specified value                        | `RuleFor(x => x.DepartmentId).NotEqual(0);`                 | `"Department Id should not be equal to '0'."`           |
+| **Length()**               | Value must have exact or specified range of characters      | `RuleFor(x => x.EnrollmentNumber).Length(11);`              | `"Enrollment Number must be 11 characters in length."`  |
+| **MinimumLength()**        | Value must contain at least specified characters            | `RuleFor(x => x.Name).MinimumLength(3);`                    | `"Name must be at least 3 characters."`                 |
+| **MaximumLength()**        | Value cannot exceed specified characters                    | `RuleFor(x => x.Name).MaximumLength(100);`                  | `"Name must be 100 characters or fewer."`               |
+| **LessThan()**             | Value must be less than specified value                     | `RuleFor(x => x.StudentId).LessThan(1000);`                 | `"Student Id must be less than '1000'."`                |
+| **LessThanOrEqualTo()**    | Value must be less than or equal to specified value         | `RuleFor(x => x.StudentId).LessThanOrEqualTo(1000);`        | `"Student Id must be less than or equal to '1000'."`    |
+| **GreaterThan()**          | Value must be greater than specified value                  | `RuleFor(x => x.DepartmentId).GreaterThan(0);`              | `"Department Id must be greater than '0'."`             |
+| **GreaterThanOrEqualTo()** | Value must be greater than or equal to specified value      | `RuleFor(x => x.DepartmentId).GreaterThanOrEqualTo(1);`     | `"Department Id must be greater than or equal to '1'."` |
+| **WithName()**             | Changes property name displayed in validation message       | `RuleFor(x => x.Name).NotEmpty().WithName("Student Name");` | `"Student Name must not be empty."`                     |
 
