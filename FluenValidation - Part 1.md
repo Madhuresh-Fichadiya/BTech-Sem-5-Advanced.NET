@@ -34,3 +34,55 @@ For ex:
 
 # Steps for Implementation 
 
+### Step 1: Install Required Packages
+- FluentValidation
+- FluentValidation.DependencyInjectionExtensions
+
+### Step 2: Create Validator Class
+Create a Folder Named Validators, Inside Validator Folder create all validator classes (Validator/StudentValidator.cs)
+```csharp
+//Validator/StudentValidator.cs
+using FluentValidation;
+
+public class StudentValidator : AbstractValidator<StudentDTO>
+{
+    public StudentValidator()
+    {
+        RuleFor(x => x.Name)
+
+            // Name is mandatory
+            .NotEmpty()
+            .WithMessage("Student Name is required")
+
+            // Name should not contain only whitespace characters
+            .Must(name => !string.IsNullOrWhiteSpace(name))
+            .WithMessage("Student Name cannot be empty or whitespace")
+
+            // Name length must not exceed 100 characters
+            .MaximumLength(100)
+            .WithMessage("Student Name cannot exceed 100 characters");
+
+        RuleFor(x => x.EnrollmentNumber)
+
+            // Enrollment Number is mandatory
+            .NotEmpty()
+            .WithMessage("Enrollment Number is required")
+
+            // Enrollment Number should not contain only whitespace characters
+            .Must(enrollment => !string.IsNullOrWhiteSpace(enrollment))
+            .WithMessage("Enrollment Number cannot be empty or whitespace")
+
+            // Enrollment Number must contain exactly 11 characters
+            .Length(11)
+            .WithMessage("Enrollment Number must be exactly 11 characters");
+
+        RuleFor(x => x.DepartmentId)
+
+            // DepartmentId must be greater than 0
+            .GreaterThan(0)
+            .WithMessage("Please select a valid Department");
+    }
+}
+```
+
+ 
