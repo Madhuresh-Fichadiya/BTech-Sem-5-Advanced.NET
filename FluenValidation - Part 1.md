@@ -1,4 +1,4 @@
-# What Problems Do We Face Without Fluent Validation?
+# What Problems Do We Face Without API input restrictions?
 
 Suppose we have the following DTO:
 ```csharp
@@ -84,5 +84,22 @@ public class StudentValidator : AbstractValidator<StudentDTO>
     }
 }
 ```
+### Step 3: Register validator in Program.cs
 
+```csharp
+using FluentValidation;
+
+var builder = WebApplication.CreateBuilder(args);
+
+...
+//This line automatically scans all validators:
+builder.Services.AddValidatorsFromAssemblyContaining<StudentValidator>();
+
+var app = builder.Build();
+
+...
+app.MapControllers();
+
+app.Run();
+```
  
