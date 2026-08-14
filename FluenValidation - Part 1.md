@@ -144,6 +144,7 @@ public class StudentController : ControllerBase
 # Common Validators
 | Validator Name             | Task of Validator                                           | Code Snippet                                                | Example Output                                          |
 | -------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- |
+| **WithName()**             | Changes property name displayed in validation message       | `RuleFor(x => x.Name).NotEmpty().WithName("Student Name");` | `"Student Name must not be empty."`                     |
 | **NotNull()**              | Ensures value is not `null`                                 | `RuleFor(x => x.Name).NotNull();`                           | `"Name must not be empty."`                             |
 | **NotEmpty()**             | Ensures value is not `null`, empty string, or default value | `RuleFor(x => x.Name).NotEmpty();`                          | `"Name must not be empty."`                             |
 | **Equal()**                | Value must match specified value                            | `RuleFor(x => x.DepartmentId).Equal(1);`                    | `"Department Id must be equal to '1'."`                 |
@@ -155,5 +156,4 @@ public class StudentController : ControllerBase
 | **LessThanOrEqualTo()**    | Value must be less than or equal to specified value         | `RuleFor(x => x.StudentId).LessThanOrEqualTo(1000);`        | `"Student Id must be less than or equal to '1000'."`    |
 | **GreaterThan()**          | Value must be greater than specified value                  | `RuleFor(x => x.DepartmentId).GreaterThan(0);`              | `"Department Id must be greater than '0'."`             |
 | **GreaterThanOrEqualTo()** | Value must be greater than or equal to specified value      | `RuleFor(x => x.DepartmentId).GreaterThanOrEqualTo(1);`     | `"Department Id must be greater than or equal to '1'."` |
-| **WithName()**             | Changes property name displayed in validation message       | `RuleFor(x => x.Name).NotEmpty().WithName("Student Name");` | `"Student Name must not be empty."`                     |
 
