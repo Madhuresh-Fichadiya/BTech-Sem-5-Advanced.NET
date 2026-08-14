@@ -19,3 +19,18 @@ public class StudentDTO
 
 
 <img width="1736" height="713" alt="FV-Image3" src="https://github.com/user-attachments/assets/ea28dacf-5f97-4b58-a283-265a9de2a149" />
+
+# What if we want to apply few restrictions on input in API?
+For ex:
+- Student Name: Compulsory, Not contain whitespaces, Maximum Length is 100 characters
+- EnrollmentNo: Compulsory, Not contain whitespaces, exact 11 characters
+- DepartmentId: Must be > 0
+
+## To implement such kind of restrictions on API There are two techniques:
+1. Data Annotations - Less Flexible
+2. Fluent Validation - More Flexible and Widely used in API development.
+
+---
+
+# Steps for Implementation 
+
