@@ -102,4 +102,38 @@ app.MapControllers();
 
 app.Run();
 ```
- 
+
+### Step 4: Call Validator Manually in Controller
+
+```csharp
+[ApiController]
+[Route("api/[controller]")]
+public class StudentController : ControllerBase
+{
+    private readonly IValidator<StudentDTO> _validator;
+
+    public StudentController(IValidator<StudentDTO> validator)
+    {
+        _validator = validator;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(StudentDTO dto)
+    {
+        var result = await _validator.ValidateAsync(dto);
+
+        if (!result.IsValid)
+        {
+            return BadRequest(result.Errors.Select(x=>x.ErrorMessage));
+        }
+        //Logic to Add Record in DB
+
+        return Ok("Student Created Successfully");
+    }
+}
+```
+---
+
+<img width="1744" height="718" alt="FV-Image4" src="https://github.com/user-attachments/assets/6e782fe4-ac67-41aa-9a6e-010d19b04e4c" />
+
+
