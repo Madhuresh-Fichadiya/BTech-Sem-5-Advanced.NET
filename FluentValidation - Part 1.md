@@ -163,5 +163,5 @@ public class StudentController : ControllerBase
 | **LessThanOrEqualTo()**    | Value must be less than or equal to specified value         | `RuleFor(x => x.StudentId).LessThanOrEqualTo(1000);`        | `"Student Id must be less than or equal to '1000'."`    |
 | **GreaterThan()**          | Value must be greater than specified value                  | `RuleFor(x => x.DepartmentId).GreaterThan(0);`              | `"Department Id must be greater than '0'."`             |
 | **GreaterThanOrEqualTo()** | Value must be greater than or equal to specified value      | `RuleFor(x => x.DepartmentId).GreaterThanOrEqualTo(1);`     | `"Department Id must be greater than or equal to '1'."` |
-| EmailAddress()     | Validates email format                 | `RuleFor(x => x.Email).EmailAddress();`                 | `"Email is not a valid email address."` |
-| Matches()          | Validates using Regular Expression     | `RuleFor(x => x.Mobile).Matches(@"^[0-9]{10}$");`       | `"Mobile is not in the correct format."` |
+| **EmailAddress()**     | Validates email format                 | `RuleFor(x => x.Email).EmailAddress();`                 | `"Email is not a valid email address."` |
+| **Matches()**          | Validates using Regular Expression     | `RuleFor(x => x.Mobile).Matches(@"^[0-9]{10}$");`       | `"Mobile is not in the correct format."` |
