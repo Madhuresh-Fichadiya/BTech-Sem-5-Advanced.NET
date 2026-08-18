@@ -115,6 +115,7 @@ RuleForEach(x => x.Courses)
 ```
 
 ## 7. DependentRules() - Useful when one validation should execute only if the previous validation succeeds.
+```
 Is StudentName empty?
        │
        ├── YES → Stop dependent validation
@@ -122,7 +123,7 @@ Is StudentName empty?
        └── NO
             ↓
       Check numbers
-
+```
 ```csharp
 RuleFor(x => x.StudentName)
     .NotEmpty()
