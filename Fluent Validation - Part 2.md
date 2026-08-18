@@ -46,21 +46,21 @@ RuleFor(x => x.Gender)
     .IsInEnum();
 ```
 
-## 2. When() - When() applies a rule only when a condition is true.
+## 2. When() - Applies a rule only when a condition is true.
 ```cshap
 RuleFor(x => x.HostelName)
     .NotEmpty()
     .When(x => x.IsHosteller);
 ```
 
-## 3. Unless() - Unless() is basically the opposite condition.
+## 3. Unless() - It is basically the opposite condition.
 ```cshap
 RuleFor(x => x.HostelName)
     .Empty()
     .Unless(x => x.IsHosteller);
 ```
 
-## 4. Must() - Must() is extremely useful for custom business rules.
+## 4. Must() - It is extremely useful for custom business rules.
 ```csharp
 RuleFor(x => x.Fees)
     .Must(fees => fees >= 10000 && fees <= 200000)
@@ -74,7 +74,7 @@ RuleForEach(x => x.Courses)
     .MaximumLength(50);
 ```
 
-## 6. SetValidator() - SetValidator() becomes especially useful when each collection item is a complex object. mainly useful for nested/complex DTO validation.
+## 6. SetValidator() - Becomes especially useful when each collection item is a complex object. mainly useful for nested/complex DTO validation.
 ```csharp
 public class CourseDTO
 {
@@ -114,7 +114,7 @@ RuleForEach(x => x.Courses)
     .SetValidator(new CourseDTOValidator());
 ```
 
-## 7. DependentRules() - DependentRules() is useful when one validation should execute only if the previous validation succeeds.
+## 7. DependentRules() - Useful when one validation should execute only if the previous validation succeeds.
 Is StudentName empty?
        │
        ├── YES → Stop dependent validation
