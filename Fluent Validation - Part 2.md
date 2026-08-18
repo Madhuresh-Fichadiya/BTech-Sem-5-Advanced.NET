@@ -166,3 +166,27 @@ RuleFor(x => x.DepartmentId)
     })
     .WithMessage("Selected department does not exist.");
 ```
+
+## 10. Conflict Check
+Suppose: A student cannot register for a course if that course conflicts with an already registered course.
+For ex: 
+Existing Courses - C#, Database, Networks, 
+Requested Courses - C#, Java
+
+C# is already registered → conflict. We can implement a database conflict check using MustAsync().
+
+```csharp
+RuleFor(x => x)
+    .MustAsync(async (dto, cancellation) =>
+    {
+        var existingCourses = await _context.StudentCourses
+            .Where(x => x.StudentId == dto.StudentId)
+            .Select(x => x.CourseName)
+            .ToListAsync(cancellation);
+
+        return !dto.Courses
+            .Any(c => existingCourses
+                .Contains(c, StringComparer.OrdinalIgnoreCase));
+    })
+    .WithMessage("One or more selected courses are already registered.");
+```
