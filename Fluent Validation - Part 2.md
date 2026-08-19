@@ -141,13 +141,11 @@ Suppose we want to check: Does this enrollment number already exist?
 
 ```csharp
 RuleFor(x => x.EnrollmentNo)
-    .MustAsync(async (dto, enrollmentNo, cancellation) =>
+    .MustAsync(async (enrollmentNo, cancellation) =>
     {
         return !await _context.Students
             .AnyAsync(x =>
-                x.EnrollmentNo == enrollmentNo &&
-                x.StudentId != dto.StudentId,
-                cancellation);
+                x.EnrollmentNo == enrollmentNo);
     })
     .WithMessage("Enrollment number already exists.");
 ```
@@ -162,8 +160,7 @@ RuleFor(x => x.DepartmentId)
     .MustAsync(async (departmentId, cancellation) =>
     {
         return await _context.Departments
-            .AnyAsync(x => x.DepartmentId == departmentId,
-                cancellation);
+            .AnyAsync(x => x.DepartmentId == departmentId);
     })
     .WithMessage("Selected department does not exist.");
 ```
