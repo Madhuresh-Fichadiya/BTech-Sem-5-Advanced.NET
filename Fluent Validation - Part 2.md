@@ -2,7 +2,7 @@
 
 ## Consider below schema for validation
 ```cshap
-public class SingleDTO
+public class StudentDTO
 {
     public int StudentId { get; set; }
 
