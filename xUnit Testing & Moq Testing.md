@@ -106,5 +106,71 @@ public class OrderControllerTests
     }
 }
 ```
+---
+## 3. Part 2: Moq Testing (Dependency Mocking)
 
+**Moq** allows developers to synthesize fake implementations of interfaces to isolate unit tests from external infrastructure like database adapters, external HTTP services, or file systems.
+
+### Core Moq Concepts
+
+* **`new Mock<IInterface>()`**: Constructs a mock container wrapper for the target interface.
+* **`.Setup(...)`**: Establishes execution expectations and configuration rules for a given call signature.
+* **`.ReturnsAsync(...)` / `.Returns(...)`**: Configures return payload values.
+* **`It.IsAny<T>()`**: Serves as a parameter wildcard matcher.
+* **`.Verify(...)`**: Asserts that an interface method was invoked according to specified rules (e.g., `Times.Once`).
+
+---
+
+### Production Code Example: Controller With Dependencies
+
+```csharp
+// Models & Interfaces
+namespace MyWebAPI.Models;
+
+public class UserProfile
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+}
+
+public interface IUserRepository
+{
+    Task<UserProfile?> GetByIdAsync(int id);
+    Task<bool> CreateUserAsync(UserProfile user);
+}
+
+// Controller Implementation
+using Microsoft.AspNetCore.Mvc;
+using MyWebAPI.Models;
+
+namespace MyWebAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class UserController : ControllerBase
+{
+    private readonly IUserRepository _userRepository;
+
+    public UserController(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+
+        if (user == null)
+        {
+            return NotFound($"User with ID {id} was not found.");
+        }
+
+        return Ok(user);
+    }
+}
+```
+
+---
 ---
