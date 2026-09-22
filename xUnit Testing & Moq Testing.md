@@ -60,3 +60,51 @@ public class OrderController : ControllerBase
 ```
 
 ---
+### xUnit Test Suite
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using MyWebAPI.Controllers;
+using Xunit;
+
+namespace MyWebAPI.Tests;
+
+public class OrderControllerTests
+{
+    [Fact]
+    public void CalculateTax_WhenOrderTotalIsPositive_ReturnsOkWithCalculatedTax()
+    {
+        // 1. ARRANGE
+        var controller = new OrderController();
+        decimal inputTotal = 100.00m;
+        decimal expectedTax = 10.00m;
+
+        // 2. ACT
+        var result = controller.CalculateTax(inputTotal);
+
+        // 3. ASSERT
+        var okResult = Assert.IsType<OkObjectResult>(result); 
+        var actualTax = Assert.IsType<decimal>(okResult.Value); 
+        Assert.Equal(expectedTax, actualTax);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-10.50)]
+    [InlineData(-100)]
+    public void CalculateTax_WhenOrderTotalIsZeroOrNegative_ReturnsBadRequest(decimal invalidTotal)
+    {
+        // ARRANGE
+        var controller = new OrderController();
+
+        // ACT
+        var result = controller.CalculateTax(invalidTotal);
+
+        // ASSERT
+        var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal("Order total must be greater than zero.", badRequestResult.Value);
+    }
+}
+```
+
+---
