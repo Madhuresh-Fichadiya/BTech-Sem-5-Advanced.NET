@@ -109,16 +109,35 @@ public class OrderControllerTests
 ---
 ## 3. Part 2: Moq Testing (Dependency Mocking)
 
-**Moq** allows developers to synthesize fake implementations of interfaces to isolate unit tests from external infrastructure like database adapters, external HTTP services, or file systems.
+Real-world API controllers rarely work in isolation. They depend on services, repositories, databases, and third-party HTTP clients via Dependency Injection (DI).
+
+When unit testing, you do not want to hit a real database or call a live API endpoint. Moq is a library that allows you to create dummy "mock" implementations of interfaces. You can program these mocks to return specific responses or throw errors when called..
 
 ### Core Moq Concepts
 
-* **`new Mock<IInterface>()`**: Constructs a mock container wrapper for the target interface.
-* **`.Setup(...)`**: Establishes execution expectations and configuration rules for a given call signature.
-* **`.ReturnsAsync(...)` / `.Returns(...)`**: Configures return payload values.
+* **`new Mock<IInterface>()`**: Creates a fake instance of an interface or abstract class T.
+* **`.Setup(...)`**: Defines how a method on the mock should behave when called.
+* **`.ReturnsAsync(...)` / `.Returns(...)`**: Specifies the value the mocked method should return.
 * **`It.IsAny<T>()`**: Serves as a parameter wildcard matcher.
-* **`.Verify(...)`**: Asserts that an interface method was invoked according to specified rules (e.g., `Times.Once`).
+* **`.Verify(...)`**: Asserts that a specific method on the mock was actually called a specific number of times.
+---
+When testing components with external dependencies (e.g., Repositories, Databases, Third-party APIs), **Moq** intercepts dependency calls so the database or network is never touched.
 
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Runner as xUnit Test Runner
+    participant Mock as Mock<IUserRepository>
+    participant Controller as UserController (Target)
+
+    Runner->>Mock: 1. Setup: GetByIdAsync(42) returns fakeUser
+    Runner->>Controller: 2. Instantiate UserController(Mock.Object)
+    Runner->>Controller: 3. Call GetUserById(42)
+    Controller->>Mock: 4. GetByIdAsync(42)
+    Mock-->>Controller: 5. Return fakeUser
+    Controller-->>Runner: 6. Return OkObjectResult(fakeUser)
+    Runner->>Mock: 7. Verify GetByIdAsync(42) was called Times.Once
+```
 ---
 
 ### Production Code Example: Controller With Dependencies
@@ -172,5 +191,4 @@ public class UserController : ControllerBase
 }
 ```
 
----
 ---
