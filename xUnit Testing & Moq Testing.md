@@ -1,4 +1,3 @@
----
 
 ## Part 1: xUnit Testing Fundamentals
 **xUnit.net** is the leading open-source unit testing tool for .NET.
@@ -12,9 +11,8 @@
   1. **Arrange**: Initialize target objects, setup input data.
   2. **Act**: Execute the method under test.
   3. **Assert**: Verify that outcomes match expected criteria using `Assert` class methods.
-
 ---
-When testing a controller or service with no external dependencies, xUnit acts directly upon the target instance:
+- When testing a controller or service with no external dependencies, xUnit acts directly upon the target instance:
 
 ```mermaid
 sequenceDiagram
