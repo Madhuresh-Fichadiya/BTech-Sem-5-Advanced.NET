@@ -2,6 +2,10 @@
 ## Part 1: xUnit Testing Fundamentals
 **xUnit.net** is the leading open-source unit testing tool for .NET.
 
+- Testing means checking that your code works correctly before it goes live.
+- Unit Testing = testing the smallest part of code (a method, service, or controller action) alone, without other parts.
+- Why? Finds bugs early, keeps code quality high, makes refactoring safe.
+
 ### Key Attributes & Concepts
 
 * **`[Fact]`**: Identifies a test method that requires no parameters and tests a fixed condition.
@@ -29,7 +33,6 @@ sequenceDiagram
 
 ---
 
----
 ### Production Code Example: Controller Without Dependencies
 
 ```csharp
