@@ -192,3 +192,71 @@ public class UserController : ControllerBase
 ```
 
 ---
+### xUnit + Moq Test Suite
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using MyWebAPI.Controllers;
+using MyWebAPI.Models;
+using Xunit;
+
+namespace MyWebAPI.Tests;
+
+public class UserControllerTests
+{
+    private readonly Mock<IUserRepository> _mockRepo;
+    private readonly UserController _controller;
+
+    public UserControllerTests()
+    {
+        // Shared Setup: Create mock repository and pass its Object to the target controller
+        _mockRepo = new Mock<IUserRepository>();
+        _controller = new UserController(_mockRepo.Object);
+    }
+
+    [Fact]
+    public async Task GetUserById_WhenUserExists_ReturnsOkWithUser()
+    {
+        // ARRANGE
+        int userId = 42;
+        var fakeUser = new UserProfile { Id = userId, Name = "Jane Doe", Email = "jane@example.com" };
+
+        _mockRepo.Setup(repo => repo.GetByIdAsync(userId))
+                 .ReturnsAsync(fakeUser);
+
+        // ACT
+        var result = await _controller.GetUserById(userId);
+
+        // ASSERT
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        var returnedUser = Assert.IsType<UserProfile>(okResult.Value);
+        
+        Assert.Equal(userId, returnedUser.Id);
+        Assert.Equal("Jane Doe", returnedUser.Name);
+
+        // VERIFY: Verify repository was queried exactly once
+        _mockRepo.Verify(repo => repo.GetByIdAsync(userId), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetUserById_WhenUserDoesNotExist_ReturnsNotFound()
+    {
+        // ARRANGE
+        int userId = 99;
+
+        _mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
+                 .ReturnsAsync((UserProfile?)null);
+
+        // ACT
+        var result = await _controller.GetUserById(userId);
+
+        // ASSERT
+        var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        Assert.Equal("User with ID 99 was not found.", notFoundResult.Value);
+
+        // VERIFY
+        _mockRepo.Verify(repo => repo.GetByIdAsync(99), Times.Once);
+    }
+}
+```
