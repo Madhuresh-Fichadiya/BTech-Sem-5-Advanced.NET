@@ -260,3 +260,237 @@ public class UserControllerTests
     }
 }
 ```
+---
+
+**Mocking Async Repository with Exceptions**, **Mocking `ILogger**`, and **Testing `HttpPost` / Validation**.
+
+## Scenario 1: Testing Exception Handling & Database Failures
+
+When your repository throws a database exception or connection error, your API controller should handle it gracefully (e.g., returning a `500 Internal Server Error`).
+
+### Production Code
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+namespace MyWebAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly IProductRepository _repository;
+
+    public ProductsController(IProductRepository repository)
+    {
+        _repository = repository;
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProduct(int id)
+    {
+        try
+        {
+            var product = await _repository.GetByIdAsync(id);
+            if (product == null) return NotFound();
+            return Ok(product);
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, "An error occurred while fetching the product.");
+        }
+    }
+}
+
+```
+
+### xUnit + Moq Test (`.ThrowsAsync`)
+
+Using `.ThrowsAsync()`, you force the mock to simulate a database failure without having an actual database connection.
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using MyWebAPI.Controllers;
+using Xunit;
+
+namespace MyWebAPI.Tests;
+
+public class ProductsControllerTests
+{
+    [Fact]
+    public async Task GetProduct_WhenDatabaseThrowsException_Returns500InternalServerError()
+    {
+        // ARRANGE
+        var mockRepo = new Mock<IProductRepository>();
+        
+        // Setup mock to throw an exception when GetByIdAsync is called
+        mockRepo.Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
+                .ThrowsAsync(new Exception("Database connection timeout"));
+
+        var controller = new ProductsController(mockRepo.Object);
+
+        // ACT
+        var result = await controller.GetProduct(10);
+
+        // ASSERT
+        var statusResult = Assert.IsType<ObjectResult>(result);
+        Assert.Equal(500, statusResult.StatusCode);
+        Assert.Equal("An error occurred while fetching the product.", statusResult.Value);
+    }
+}
+
+```
+
+---
+
+## Scenario 2: Testing POST Endpoint & Object Creation
+
+In a `POST` method, controllers usually validate input, pass models to a repository, and return a `201 CreatedAtAction` response.
+
+### Production Code
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using MyWebAPI.Models;
+
+namespace MyWebAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly IProductRepository _repository;
+
+    public ProductsController(IProductRepository repository) => _repository = repository;
+
+    [HttpPost]
+    public async Task<IActionResult> CreateProduct([FromBody] ProductDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Name))
+        {
+            return BadRequest("Product name is required.");
+        }
+
+        var newProduct = new Product { Id = 101, Name = dto.Name, Price = dto.Price };
+        await _repository.AddAsync(newProduct);
+
+        // Returns 201 Created with Location header pointing to GetProduct
+        return CreatedAtAction(nameof(GetProduct), new { id = newProduct.Id }, newProduct);
+    }
+}
+
+```
+
+### xUnit + Moq Test (Verifying Parameters with `It.Is`)
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using MyWebAPI.Controllers;
+using MyWebAPI.Models;
+using Xunit;
+
+namespace MyWebAPI.Tests;
+
+public class CreateProductTests
+{
+    [Fact]
+    public async Task CreateProduct_WithValidData_Returns201CreatedAndCallsAddAsync()
+    {
+        // ARRANGE
+        var mockRepo = new Mock<IProductRepository>();
+        var controller = new ProductsController(mockRepo.Object);
+        var inputDto = new ProductDto { Name = "Laptop", Price = 1200.00m };
+
+        // ACT
+        var result = await controller.CreateProduct(inputDto);
+
+        // ASSERT
+        var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+        Assert.Equal(201, createdResult.StatusCode);
+        Assert.Equal("GetProduct", createdResult.ActionName);
+
+        // VERIFY: Ensure AddAsync was called with a Product object matching our criteria
+        mockRepo.Verify(repo => repo.AddAsync(It.Is<Product>(p => p.Name == "Laptop" && p.Price == 1200.00m)), Times.Once);
+    }
+}
+
+```
+
+---
+
+## Scenario 3: Testing Log Calls (`ILogger<T>`)
+
+Almost every enterprise Web API injects `ILogger<T>`. Verifying whether error logs or info logs were triggered requires matching Moq with extension methods.
+
+### Production Code
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace MyWebAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AuditController : ControllerBase
+{
+    private readonly ILogger<AuditController> _logger;
+
+    public AuditController(ILogger<AuditController> logger)
+    {
+        _logger = logger;
+    }
+
+    [HttpPost("log-access")]
+    public IActionResult LogAccess([FromBody] string username)
+    {
+        _logger.LogInformation("User {Username} accessed the audit endpoint.", username);
+        return Ok();
+    }
+}
+
+```
+
+### xUnit + Moq Test (`ILogger` Verification)
+
+Because `LogInformation` is an extension method, you mock the underlying `ILogger.Log` call:
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using MyWebAPI.Controllers;
+using Xunit;
+
+namespace MyWebAPI.Tests;
+
+public class AuditControllerTests
+{
+    [Fact]
+    public void LogAccess_WhenCalled_LogsInformationMessage()
+    {
+        // ARRANGE
+        var mockLogger = new Mock<ILogger<AuditController>>();
+        var controller = new AuditController(mockLogger.Object);
+
+        // ACT
+        var result = controller.LogAccess("JohnDoe");
+
+        // ASSERT
+        Assert.IsType<OkResult>(result);
+
+        // VERIFY: Check if ILogger.Log was executed with LogLevel.Information
+        mockLogger.Verify(
+            logger => logger.Log(
+                LogLevel.Information,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("User JohnDoe accessed")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Once);
+    }
+}
+
+```
