@@ -2,7 +2,9 @@
 
 **Moq** (pronounced "Mock-doc" or "Mock") is a popular mocking library for .NET used during unit testing.
 
-When you test a component (like an API Controller), that component often depends on external classes or services (like database repositories, third-party APIs, or email services). If your unit test hits a real database or calls a real external service, it is **not a unit test**—it becomes an integration test, which is slow, unreliable, and prone to side effects.
+When you test a component (like an API Controller), that component often depends on external classes or services (like database repositories, third-party APIs, or email services). 
+
+If your unit test hits a real database or calls a real external service, it is **not a unit test** — it becomes an integration test, which is slow, unreliable, and prone to side effects.
 
 **Moq** solves this problem by allowing you to create fake (mocked) implementations of interfaces in memory. You can program these mock objects to:
 
