@@ -262,7 +262,7 @@ public class UserControllerTests
 ```
 ---
 
-**Mocking Async Repository with Exceptions**, **Mocking `ILogger**`, and **Testing `HttpPost` / Validation**.
+# **Mocking Async Repository with Exceptions**, **Mocking `ILogger**`, and **Testing `HttpPost` / Validation**.
 
 ## Scenario 1: Testing Exception Handling & Database Failures
 
