@@ -17,7 +17,7 @@
 When testing a controller or service with no external dependencies, xUnit acts directly upon the target instance:
 
 ```mermaid
-
+sequenceDiagram
     autonumber
     participant Runner as xUnit Test Runner
     participant Controller as OrderController (Target)
@@ -28,6 +28,8 @@ When testing a controller or service with no external dependencies, xUnit acts d
     Controller-->>Runner: 3. Return OkObjectResult(10.00m)
     Note over Runner: 4. Assert response type and calculated value
 ```
+
+---
 
 ---
 ### Production Code Example: Controller Without Dependencies
