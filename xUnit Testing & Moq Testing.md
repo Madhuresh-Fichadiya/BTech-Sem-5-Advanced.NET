@@ -17,7 +17,7 @@
 When testing a controller or service with no external dependencies, xUnit acts directly upon the target instance:
 
 ```mermaid
-sequenceDiagram
+
     autonumber
     participant Runner as xUnit Test Runner
     participant Controller as OrderController (Target)
